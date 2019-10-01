@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "Matter";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/matter-regular.woff2");
+}
+@font-face {
+  font-family: "Matter";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../assets/matter-medium.woff2");
+}
+@font-face {
+  font-family: "Matter";
+  font-style: light;
+  font-weight: 100;
+  src: url("../assets/matter-light.woff2");
+}
+
+body,
+html {
+  font-family: "Matter";
+  height: 100%;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  /* border-color: #ff8800;
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075) inset, 0 0 8px rgba(229, 103, 23, 0.6); */
+  outline: 0 none;
+}
