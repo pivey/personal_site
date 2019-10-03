@@ -3,7 +3,7 @@ import React from 'react'
 function TestSection() {
     return (
         <>
-            <h2>section 1</h2>
+            <h2 id='Home'>section 1</h2>
             <br />
             <br />
             <br />
@@ -13,7 +13,7 @@ function TestSection() {
         </div>
             <br />
             <br />
-            <h2>About</h2>
+            <h2 id='About'>About</h2>
             <br />
             <br />
             <br />
@@ -23,7 +23,7 @@ function TestSection() {
         </div>
             <br />
             <br />
-            <h2>Projects</h2>
+            <h2 id='Projects'>Projects</h2>
             <br />
             <br />
             <br />

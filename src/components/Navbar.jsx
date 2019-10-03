@@ -1,15 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { AppContext } from '../context/appContext.js';
+import { Link, animateScroll as scroll } from "react-scroll";
 
 
-const navText = {
-    s1: 'Home',
-    s2: 'About',
-    s3: 'Projects'
-}
-
-
+export const navText = [
+    { section: 'Home' },
+    { section: 'About' },
+    { section: 'Projects' }
+]
 
 const Nav = styled.div`
     position: fixed;
@@ -76,8 +75,7 @@ function Navbar() {
         };
         window.addEventListener('scroll', () => handleScroll());
 
-    }, [scrollStatus])
-
+    }, [scrollStatus]);
 
     count = 0;
 
@@ -85,12 +83,24 @@ function Navbar() {
         <Transition>
             <Nav className={scrollStatus.show ? "active" : "hidden"} >
                 {
-                    Object.values(navText).map((e, i) => {
-                        return <NavBtn key={i}>{e}</NavBtn>
+                    navText.map((e, i) => {
+                        return (
+                            <Link
+                                activeClass="active"
+                                to={e.section}
+                                spy={true}
+                                smooth={true}
+                                offset={-70}
+                                duration={500}
+                            >
+                                <NavBtn key={i}>{e.section}</NavBtn>
+                            </Link>
+
+                        )
                     })
                 }
             </ Nav>
-        </Transition>
+        </Transition >
     )
 }
 

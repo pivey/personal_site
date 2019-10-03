@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 
 const MainWrapper = styled.div`
+  padding-top:10%;
   width: 100vw;
   height:auto;
   background: green;
