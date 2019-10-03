@@ -44,6 +44,6 @@ button:focus {
   outline: 0 none;
 }
 
-nav > .active {
+/* .active {
   border-bottom: 1px solid #333;
-}
+} */
