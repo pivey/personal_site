@@ -19,8 +19,6 @@ function App() {
       <MainWrapper>
         <Navbar />
         <Timeline />
-
-        {/* <TestSection /> */}
       </MainWrapper>
     </>
   );
