@@ -4,8 +4,8 @@ import App from './App';
 import AppContextProvider from './context/appContext';
 
 ReactDOM.render(
-    <AppContextProvider>
-        <App />
-    </AppContextProvider>,
-    document.getElementById('root'));
-
+  <AppContextProvider>
+    <App />
+  </AppContextProvider>,
+  document.getElementById('root')
+);
