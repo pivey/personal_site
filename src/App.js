@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './styles/App.css';
 import './styles/Base.css'
 import Navbar from './components/Navbar';
 import TestSection from './components/testSection';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components'
+import { themes } from './utils/themes';
+
+const lightTheme = () => ({
+  ...themes['light'],
+})
+
+const darkTheme = () => ({
+  ...themes['dark'],
+})
 
 
 const MainWrapper = styled.div`
@@ -14,12 +23,19 @@ const MainWrapper = styled.div`
 `;
 
 function App() {
+
+  const [theme, setTheme] = useState(lightTheme())
+  const setDarkTheme = () => setTheme(darkTheme())
+  const setLightTheme = () => setTheme(lightTheme())
+
   return (
     <>
+    <ThemeProvider theme={theme}>
       <MainWrapper>
         <Navbar />
         <TestSection />
       </MainWrapper>
+    </ThemeProvider>
     </>
   );
 }
