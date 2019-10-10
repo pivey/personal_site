@@ -18,8 +18,7 @@ const ThemeIcon = css`
   background-position: 50% 50%;
   background-color: transparent;
   background-repeat: no-repeat;
-
-`
+`;
 
 const MoonIcon = styled.svg`
   ${ThemeIcon}
@@ -29,7 +28,7 @@ const MoonIcon = styled.svg`
 const SunIcon = styled.div`
   ${ThemeIcon}
   background-image: url(${sunSVG});
-`
+`;
 
 const lightTheme = () => ({
   ...themes.light,
@@ -47,9 +46,9 @@ const MainWrapper = styled.div`
 `;
 
 const ThemeChangeHolder = styled.div`
-  padding:10px;
-  width:100px;
-  height:50px;
+  padding: 10px;
+  width: 100px;
+  height: 50px;
 `;
 
 function App() {
@@ -63,9 +62,9 @@ function App() {
         <MainWrapper>
           <Navbar />
           <ThemeChangeHolder>
-          {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
-          {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
-          </ ThemeChangeHolder>
+            {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
+            {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
+          </ThemeChangeHolder>
           {/* {theme.type === 'dark' && (
             <button type="button" onClick={setLightTheme}>
               Light
