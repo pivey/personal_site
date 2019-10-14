@@ -1,24 +1,24 @@
 export const themes = {
-  // common: {
-  //   fontFamily:
-  //     "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-  // },
   light: {
     type: 'light',
-    bgColor: '#dcedff',
+    navColor: '#faffb8',
+    navTextColor: '#226b80',
+    bgColor: '#c5f0a4',
+    headerColor: '#35b0ab',
     color: '#3E4C59',
     searchBgColor: '#E4E7EB',
     boxShadow: '0.8rem 0.8rem 1.5rem gray',
-    categoryColor: '#999',
-    categoryHoverColor: '#333',
+    hoverColor: '#f0a4c5',
   },
   dark: {
     type: 'dark',
-    bgColor: '#1F2933',
-    color: '#E4E7EB',
+    navColor: '#182952',
+    navTextColor: '#e14594',
+    bgColor: '#2b3595',
+    headerColor: '#e14594',
+    color: 'white',
     searchBgColor: '#E4E7EB',
     boxShadow: '0.4rem 0.4rem 1.5rem #111111',
-    categoryColor: '#CBD2D9',
-    categoryHoverColor: '#9AA5B1',
+    hoverColor: '#45e1de',
   },
 };

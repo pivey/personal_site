@@ -1,18 +1,28 @@
 import React, { useState } from 'react';
 import './styles/App.css';
 import './styles/Base.css';
+import './styles/State.css';
 import styled, { css, ThemeProvider } from 'styled-components';
+// import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import TestSection from './components/testSection';
+import FrontPage from './components/FrontPage';
 import { themes } from './utils/themes';
-// import { ReactComponent as moonSVG} from './assets/logos/moon.svg'
-import sunSVG from './assets/sun.svg';
-import moonSVG from './assets/moon.svg';
+import sunSVG from './assets/sunicon.svg';
+import moonSVG from './assets/moonicon.svg';
 
-const ThemeIcon = css`
+const ThemeIconSun = css`
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-color: transparent;
+  background-repeat: no-repeat;
+`;
+
+const ThemeIconMoon = css`
   width: 3rem;
   height: 3rem;
-  margin-left: auto;
   cursor: pointer;
   background-size: cover;
   background-position: 50% 50%;
@@ -21,12 +31,12 @@ const ThemeIcon = css`
 `;
 
 const MoonIcon = styled.svg`
-  ${ThemeIcon}
+  ${ThemeIconMoon}
   background-image: url(${moonSVG});
 `;
 
 const SunIcon = styled.div`
-  ${ThemeIcon}
+  ${ThemeIconSun}
   background-image: url(${sunSVG});
 `;
 
@@ -39,16 +49,21 @@ const darkTheme = () => ({
 });
 
 const MainWrapper = styled.div`
-  padding-top: 10%;
+  padding-top: 5%;
   width: 100vw;
   height: auto;
-  background: green;
+  background: ${props => props.theme.bgColor};
 `;
 
 const ThemeChangeHolder = styled.div`
-  padding: 10px;
-  width: 100px;
-  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  position: fixed;
+  top: 7rem;
+  right: 3rem;
 `;
 
 function App() {
@@ -60,23 +75,12 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <MainWrapper>
-          <Navbar />
-          <ThemeChangeHolder>
+          <ThemeChangeHolder className="hvr-push">
             {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
             {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
           </ThemeChangeHolder>
-          {/* {theme.type === 'dark' && (
-            <button type="button" onClick={setLightTheme}>
-              Light
-            </button>
-          )}
-          {theme.type === 'light' && (
-            <button type="button" onClick={setDarkTheme}>
-              Dark
-            </button>
-          )} */}
-
-          <TestSection />
+          <Navbar />
+          <FrontPage />
         </MainWrapper>
       </ThemeProvider>
     </>

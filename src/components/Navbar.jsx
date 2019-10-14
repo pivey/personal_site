@@ -15,25 +15,27 @@ const Nav = styled.div`
   left: 0;
   width: 100%;
   margin: 0 auto;
-  height: 3rem;
+  height: 4rem;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   z-index: 1000;
-  ${props => props.theme.bgColor};
-  background: ${props => props.theme.bgColor};
+  background: ${props => props.theme.navColor};
 `;
 
 const NavBtn = styled.div`
   display: flex;
-  color: ${props => props.theme.color};
+  color: ${props => props.theme.navTextColor};
   align-items: center;
   justify-content: center;
   min-width: 50px;
   height: 100%;
-  margin: 0 2rem;
+  margin: 0 3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
   &:hover {
     cursor: pointer;
+    color: ${props => props.theme.hoverColor};
   }
 `;
 
@@ -79,10 +81,13 @@ function Navbar() {
             to={e.section} //
             spy //
             smooth //
-            offset={-70} //
-            duration={500} //
+            offset={-80} //
+            duration={1000} //
+            key={i}
           >
-            <NavBtn key={i}>{e.section}</NavBtn>
+            <NavBtn className="noSelect" key={i}>
+              {e.section}
+            </NavBtn>
           </Link>
         ))}
       </Nav>
