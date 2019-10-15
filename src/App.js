@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './styles/App.css';
 import './styles/Base.css';
 import './styles/State.css';
 import styled, { css, ThemeProvider } from 'styled-components';
-// import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import FrontPage from './components/FrontPage';
+import TickTackToe from './components/TickTackToe';
 import { themes } from './utils/themes';
 import sunSVG from './assets/sunicon.svg';
 import moonSVG from './assets/moonicon.svg';
+import history from './history';
 
 const ThemeIconSun = css`
   width: 3.5rem;
@@ -51,7 +53,8 @@ const darkTheme = () => ({
 const MainWrapper = styled.div`
   padding-top: 5%;
   width: 100vw;
-  height: auto;
+  min-height: 100vh;
+  max-height: auto;
   background: ${props => props.theme.bgColor};
 `;
 
@@ -66,24 +69,33 @@ const ThemeChangeHolder = styled.div`
   right: 3rem;
 `;
 
+const routes = [{ path: '/', component: FrontPage }, { path: '/ticktacktoe', component: TickTackToe }];
+const routing = routes.map(({ path, component }, i) => <Route exact path={path} component={component} key={i} />);
+
 function App() {
   const [theme, setTheme] = useState(lightTheme());
   const setDarkTheme = () => setTheme(darkTheme());
   const setLightTheme = () => setTheme(lightTheme());
 
   return (
-    <>
+    // history={history}
+    <Router>
       <ThemeProvider theme={theme}>
         <MainWrapper>
           <ThemeChangeHolder className="hvr-push">
             {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
             {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
           </ThemeChangeHolder>
+
           <Navbar />
-          <FrontPage />
+          {/* <Switch>
+            <Route path="/" exact component={FrontPage} />
+            <Route path="/ticktacktoe" exact component={TickTackToe} />
+          </Switch>  */}
+          {routing}
         </MainWrapper>
       </ThemeProvider>
-    </>
+    </Router>
   );
 }
 

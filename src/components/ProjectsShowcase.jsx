@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import axios from 'axios';
 
-const flex = css`
+export const flex = css`
   display: flex;
   justify-content: center;
   align-items: center;

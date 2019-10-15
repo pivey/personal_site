@@ -1,7 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link, animateScroll as scroll } from 'react-scroll';
+// import { Link, animateScroll } from 'react-scroll';
+// import { Link as RouteLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppContext } from '../context/appContext.js';
+import history from '../history';
 
 export const navText = [
   { section: 'Home' }, //
@@ -51,8 +54,29 @@ const Transition = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: ${props => props.theme.navTextColor};
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    color: ${props => props.theme.hoverColor};
+    text-decoration: none;
+  }
+`;
+
 function Navbar() {
   const { scrollStatus, setScrollStatus } = useContext(AppContext);
+  const { reRoute } = useContext(AppContext);
 
   console.log(document.body.getBoundingClientRect().top);
 
@@ -71,7 +95,6 @@ function Navbar() {
   }, [scrollStatus]);
 
   count = 0;
-
   return (
     <Transition>
       <Nav className={scrollStatus.show ? 'active' : 'hidden'}>
@@ -90,6 +113,13 @@ function Navbar() {
             </NavBtn>
           </Link>
         ))}
+        {/* <StyledLink  onClick={() => reRoute(history, '/')}> */}
+        <NavBtn>
+          <StyledLink to="/">Home</StyledLink>
+        </NavBtn>
+        <NavBtn>
+          <StyledLink to="/ticktacktoe">Ticktacktoe</StyledLink>
+        </NavBtn>
       </Nav>
     </Transition>
   );
