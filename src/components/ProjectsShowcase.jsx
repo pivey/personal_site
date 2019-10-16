@@ -23,9 +23,7 @@ const ShowcaseItem = styled.div`
   background: orange;
   color: white;
   font-weight: bold;
-  //   flex-grow: 1;
   flex-flow: dense;
-  //   flex-shrink: 2;
   &:hover {
     cursor: pointer;
     text-decoration: underline;

@@ -69,8 +69,8 @@ const ThemeChangeHolder = styled.div`
   right: 3rem;
 `;
 
-const routes = [{ path: '/', component: FrontPage }, { path: '/ticktacktoe', component: TickTackToe }];
-const routing = routes.map(({ path, component }, i) => <Route exact path={path} component={component} key={i} />);
+// const routes = [{ path: '/', component: FrontPage }, { path: '/ticktacktoe', component: TickTackToe }];
+// const routing = routes.map(({ path, component }, i) => <Route exact path={path} component={component} key={i} />);
 
 function App() {
   const [theme, setTheme] = useState(lightTheme());
@@ -92,7 +92,7 @@ function App() {
             <Route path="/" exact component={FrontPage} />
             <Route path="/ticktacktoe" exact component={TickTackToe} />
           </Switch>  */}
-          {routing}
+          {/* {routing} */}
         </MainWrapper>
       </ThemeProvider>
     </Router>
