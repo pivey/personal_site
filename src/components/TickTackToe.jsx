@@ -17,5 +17,4 @@ const TickTackToe = () => {
     </>
   );
 };
-
 export default TickTackToe;

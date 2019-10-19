@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
-// import { Link, animateScroll } from 'react-scroll';
-// import { Link as RouteLink } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { Link, animateScroll as scroll } from 'react-scroll';
 import { AppContext } from '../context/appContext.js';
-import history from '../history';
+
+// import { Link as RouteLink } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+// import history from '../history';
 
 export const navText = [
   { section: 'Home' }, //
@@ -63,7 +64,6 @@ const StyledLink = styled(Link)`
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
-
   &:focus,
   &:hover,
   &:visited,
@@ -76,7 +76,6 @@ const StyledLink = styled(Link)`
 
 function Navbar() {
   const { scrollStatus, setScrollStatus } = useContext(AppContext);
-  const { reRoute } = useContext(AppContext);
 
   console.log(document.body.getBoundingClientRect().top);
 
@@ -95,6 +94,7 @@ function Navbar() {
   }, [scrollStatus]);
 
   count = 0;
+
   return (
     <Transition>
       <Nav className={scrollStatus.show ? 'active' : 'hidden'}>
@@ -105,7 +105,7 @@ function Navbar() {
             spy //
             smooth //
             offset={-80} //
-            duration={1000} //
+            duration={700} //
             key={i}
           >
             <NavBtn className="noSelect" key={i}>
@@ -113,13 +113,12 @@ function Navbar() {
             </NavBtn>
           </Link>
         ))}
-        {/* <StyledLink  onClick={() => reRoute(history, '/')}> */}
-        <NavBtn>
+         {/* <NavBtn>
           <StyledLink to="/">Home</StyledLink>
         </NavBtn>
         <NavBtn>
           <StyledLink to="/ticktacktoe">Ticktacktoe</StyledLink>
-        </NavBtn>
+        </NavBtn> */}
       </Nav>
     </Transition>
   );
