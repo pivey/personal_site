@@ -102,6 +102,7 @@ function App() {
               </ThemeChangeHolder>
             </TransitionX>
             <Navbar />
+
             {/* <Switch>
             <Route path="/" exact component={FrontPage} />
             <Route path="/ticktacktoe" exact component={TickTackToe} />
