@@ -106,6 +106,7 @@ function App() {
             <Route path="/" exact component={FrontPage} />
             <Route path="/ticktacktoe" exact component={TickTackToe} />
           </Switch> */}
+
             {routing}
           </MainWrapper>
         </ThemeProvider>
