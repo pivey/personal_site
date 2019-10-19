@@ -25,11 +25,13 @@ const Nav = styled.div`
   align-items: center;
   z-index: 1000;
   background: ${props => props.theme.navColor};
+  transition-duration: ${props => props.theme.delay};
 `;
 
 const NavBtn = styled.div`
   display: flex;
   color: ${props => props.theme.navTextColor};
+  transition-duration: ${props => props.theme.delay};
   align-items: center;
   justify-content: center;
   min-width: 50px;
@@ -55,29 +57,28 @@ const Transition = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: ${props => props.theme.navTextColor};
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    color: ${props => props.theme.hoverColor};
-    text-decoration: none;
-  }
-`;
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+//   transition-duration: ${props => props.theme.delay};
+//   color: ${props => props.theme.navTextColor};
+//   -webkit-touch-callout: none; /* iOS Safari */
+//   -webkit-user-select: none; /* Safari */
+//   -khtml-user-select: none; /* Konqueror HTML */
+//   -moz-user-select: none; /* Old versions of Firefox */
+//   -ms-user-select: none; /* Internet Explorer/Edge */
+//   user-select: none; /* Non-prefixed version, currently
+//   &:focus,
+//   &:hover,
+//   &:visited,
+//   &:link,
+//   &:active {
+//     color: ${props => props.theme.hoverColor};
+//     text-decoration: none;
+//   }
+// `;
 
 function Navbar() {
   const { scrollStatus, setScrollStatus } = useContext(AppContext);
-
-  console.log(document.body.getBoundingClientRect().top);
 
   let count = 0;
   useEffect(() => {
@@ -113,7 +114,7 @@ function Navbar() {
             </NavBtn>
           </Link>
         ))}
-         {/* <NavBtn>
+        {/* <NavBtn>
           <StyledLink to="/">Home</StyledLink>
         </NavBtn>
         <NavBtn>

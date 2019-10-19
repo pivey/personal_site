@@ -20,7 +20,7 @@ const ShowcaseItem = styled.div`
   height: 15rem;
   width: 15rem;
   margin: 3rem 2rem;
-  background: orange;
+  background: ${props => props.theme.projectColor};
   color: white;
   font-weight: bold;
   flex-flow: dense;
@@ -39,7 +39,12 @@ const ShowcaseItem = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+`;
 
+const ProjectLink = styled.a`
+  text-decoration:none;
+  &:visited, a:hover, a:active {
+    color: inherit;
 `;
 
 function ProjectsShowcase() {
@@ -52,9 +57,11 @@ function ProjectsShowcase() {
     <>
       <Showcase className="projectsContainer">
         {projects.map((e, i) => (
-          <ShowcaseItem className="hvr-reveal" key={i}>
-            {e}
-          </ShowcaseItem>
+          <ProjectLink href={e.link} target="_blank" rel="noopener noreferrer" key={i}>
+            <ShowcaseItem className="hvr-reveal" key={i}>
+              {e.name}
+            </ShowcaseItem>
+          </ProjectLink>
         ))}
       </Showcase>
     </>

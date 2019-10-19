@@ -8,7 +8,9 @@ export const themes = {
     color: '#3E4C59',
     searchBgColor: '#E4E7EB',
     boxShadow: '0.8rem 0.8rem 1.5rem gray',
-    hoverColor: '#f0a4c5',
+    hoverColor: '#ffbab8',
+    delay:'0.6s',
+    projectColor:'#ffa15d',
   },
   dark: {
     type: 'dark',
@@ -20,5 +22,7 @@ export const themes = {
     searchBgColor: '#E4E7EB',
     boxShadow: '0.4rem 0.4rem 1.5rem #111111',
     hoverColor: '#45e1de',
+    delay:'0.6s',
+    projectColor:'#854af2',
   },
 };

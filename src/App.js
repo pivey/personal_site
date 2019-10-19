@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './styles/App.css';
 import './styles/Base.css';
 import './styles/State.css';
@@ -10,10 +10,11 @@ import TickTackToe from './components/TickTackToe';
 import { themes } from './utils/themes';
 import sunSVG from './assets/sunicon.svg';
 import moonSVG from './assets/moonicon.svg';
+import { AppContext } from './context/appContext';
 
 const ThemeIconSun = css`
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
   background-size: cover;
   background-position: 50% 50%;
@@ -22,8 +23,8 @@ const ThemeIconSun = css`
 `;
 
 const ThemeIconMoon = css`
-  width: 3rem;
-  height: 3rem;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
   background-size: cover;
   background-position: 50% 50%;
@@ -54,17 +55,28 @@ const MainWrapper = styled.div`
   width: 100vw;
   height: auto;
   background: ${props => props.theme.bgColor};
+  transition-duration: ${props => props.theme.delay};
 `;
 
 const ThemeChangeHolder = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
   position: fixed;
-  top: 7rem;
+  top: 6rem;
   right: 3rem;
+`;
+
+const TransitionX = styled.div`
+  .active {
+    transition: transform 0.6s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  }
+  .hidden {
+    transition: transform 0.6s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    transform: translateX(7rem);
+  }
 `;
 
 const routes = [{ path: '/', component: FrontPage }, { path: '/ticktacktoe', component: TickTackToe }];
@@ -74,24 +86,29 @@ function App() {
   const [theme, setTheme] = useState(lightTheme());
   const setDarkTheme = () => setTheme(darkTheme());
   const setLightTheme = () => setTheme(lightTheme());
+  const { scrollStatus } = useContext(AppContext);
+
+  console.log(scrollStatus.show);
 
   return (
     <>
-    <Router>
-      <ThemeProvider theme={theme}>
-        <MainWrapper>
-          <ThemeChangeHolder className="hvr-push">
-            {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
-            {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
-          </ThemeChangeHolder>
-          <Navbar />
-          {/* <Switch>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <MainWrapper>
+            <TransitionX>
+              <ThemeChangeHolder className={scrollStatus.show ? 'active hvr-push' : 'hidden hvr-push'}>
+                {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
+                {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
+              </ThemeChangeHolder>
+            </TransitionX>
+            <Navbar />
+            {/* <Switch>
             <Route path="/" exact component={FrontPage} />
             <Route path="/ticktacktoe" exact component={TickTackToe} />
           </Switch> */}
-           {routing}
-        </MainWrapper>
-      </ThemeProvider>
+            {routing}
+          </MainWrapper>
+        </ThemeProvider>
       </Router>
     </>
   );
