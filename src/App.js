@@ -6,7 +6,6 @@ import styled, { css, ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import FrontPage from './components/FrontPage';
-import TickTackToe from './components/TickTackToe';
 import { themes } from './utils/themes';
 import sunSVG from './assets/sunicon.svg';
 import moonSVG from './assets/moonicon.svg';
@@ -66,7 +65,7 @@ const ThemeChangeHolder = styled.div`
   height: 4rem;
   position: fixed;
   top: 6rem;
-  right: 3rem;
+  right: 2.5rem;
 `;
 
 const TransitionX = styled.div`
@@ -79,7 +78,7 @@ const TransitionX = styled.div`
   }
 `;
 
-const routes = [{ path: '/', component: FrontPage }, { path: '/ticktacktoe', component: TickTackToe }];
+const routes = [{ path: '/', component: FrontPage }];
 const routing = routes.map(({ path, component }, i) => <Route exact path={path} component={component} key={i} />);
 
 function App() {
@@ -88,7 +87,8 @@ function App() {
   const setLightTheme = () => setTheme(lightTheme());
   const { scrollStatus } = useContext(AppContext);
 
-  console.log(scrollStatus.show);
+  console.log(`projects to include: unsplash image gallery, react world clocks - add an imput to it so user can choose,
+  vanilla JS todo list, music events aggregator, postGris final project, react ticktack toe. `);
 
   return (
     <>
@@ -102,12 +102,6 @@ function App() {
               </ThemeChangeHolder>
             </TransitionX>
             <Navbar />
-
-            {/* <Switch>
-            <Route path="/" exact component={FrontPage} />
-            <Route path="/ticktacktoe" exact component={TickTackToe} />
-          </Switch> */}
-
             {routing}
           </MainWrapper>
         </ThemeProvider>

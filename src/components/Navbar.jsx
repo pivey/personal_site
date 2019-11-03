@@ -5,7 +5,6 @@ import { AppContext } from '../context/appContext.js';
 
 // import { Link as RouteLink } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
-// import history from '../history';
 
 export const navText = [
   { section: 'Home' }, //
@@ -36,7 +35,7 @@ const NavBtn = styled.div`
   justify-content: center;
   min-width: 50px;
   height: 100%;
-  margin: 0 3rem;
+  margin: 0 2rem;
   font-size: 1.5rem;
   font-weight: bold;
   &:hover {
@@ -114,12 +113,6 @@ function Navbar() {
             </NavBtn>
           </Link>
         ))}
-        {/* <NavBtn>
-          <StyledLink to="/">Home</StyledLink>
-        </NavBtn>
-        <NavBtn>
-          <StyledLink to="/ticktacktoe">Ticktacktoe</StyledLink>
-        </NavBtn> */}
       </Nav>
     </Transition>
   );
