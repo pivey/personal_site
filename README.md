@@ -5,6 +5,11 @@ I'm using this project as a way portray myself to potential employers as well as
 To do: 
 
 1. deploy and link all projects in the 'projects' section. 
+- react tictactoe *** DONE
+- Unsplash_image_gallery
+- Music_events_aggregator
+- React_world_clocks
+- vanilla-JS-ToDo-list
 2. add a blog section with relavent articles 
 3. add routing to blog page
 4. add a contact section + comment section
