@@ -9,12 +9,12 @@ app.use(cors());
 
 app.get('/projects', (req, res) => {
   res.send([
-    { name: 'React tic tac toe', link: 'https://reactticktacktoe.herokuapp.com/' },
-    { name: 'Project 2', link: 'https://fakturinofrontend.herokuapp.com/' },
-    { name: 'Project 3', link: 'https://fakturinofrontend.herokuapp.com/' },
-    { name: 'Project 4', link: 'https://fakturinofrontend.herokuapp.com/' },
-    { name: 'Project 5', link: 'https://fakturinofrontend.herokuapp.com/' },
-    { name: 'Project 6', link: 'https://fakturinofrontend.herokuapp.com/' },
+    { name: 'React tic tac toe', link: 'https://reactticktacktoe.herokuapp.com/', bgc: 'react' },
+    { name: 'Project 2', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
+    { name: 'Project 3', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
+    { name: 'Project 4', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
+    { name: 'Project 5', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
+    { name: 'Project 6', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
   ]);
 });
 

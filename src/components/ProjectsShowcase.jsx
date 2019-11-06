@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import axios from 'axios';
+import reactLoogo from '../assets/reactjsLogo.svg';
+import globals from '../utils/globals';
 
-export const flex = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const { flex, backgroundProvider } = globals;
 
 const Showcase = styled.div`
   height: auto;
@@ -17,6 +15,7 @@ const Showcase = styled.div`
 `;
 
 const ShowcaseItem = styled.div`
+  ${flex('center', 'center')}
   height: 15rem;
   width: 15rem;
   margin: 3rem 2rem;
@@ -31,8 +30,12 @@ const ShowcaseItem = styled.div`
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
   }
-  ${flex}
-  font-size:1.5rem;
+  &.reactBgc {
+    ${backgroundProvider(reactLoogo)}
+    color: black;
+    background-color: #ededf4;
+  }
+  font-size: 1.5rem;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -58,7 +61,7 @@ function ProjectsShowcase() {
       <Showcase className="projectsContainer">
         {projects.map((e, i) => (
           <ProjectLink href={e.link} target="_blank" rel="noopener noreferrer" key={i}>
-            <ShowcaseItem className="hvr-reveal" key={i}>
+            <ShowcaseItem className={e.bgc !== null ? 'hvr-reveal reactBgc' : 'hvr-reveal'} key={i}>
               {e.name}
             </ShowcaseItem>
           </ProjectLink>

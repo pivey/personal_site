@@ -29,12 +29,12 @@ function FrontPage() {
     <>
       <PageWrapper>
         <SectionHeader id="Home" style={{ paddingTop: '0.5rem' }}>
-          Section 1
+          {content.title_1}
         </SectionHeader>
 
         <SectionText>{content.frontPage_1}</SectionText>
 
-        <SectionHeader id="About">About</SectionHeader>
+        <SectionHeader id="About">{content.title_2}</SectionHeader>
 
         <SectionText>{content.frontPage_2}</SectionText>
 
