@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import content from '../assets/content/text';
+import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
 
 const PageWrapper = styled.div`
@@ -18,6 +18,7 @@ const SectionHeader = styled.div`
 `;
 
 const SectionText = styled.div`
+  line-height: 1.8rem;
   height: auto;
   width: auto;
   padding-bottom: 6rem;

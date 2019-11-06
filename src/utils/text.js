@@ -1,11 +1,12 @@
 const websiteText = {
-  title_1: `What do I do?`,
+  title_1: `Hi! it's me Peter`,
   frontPage_1: `
+    I'm  a web developer based in Stockholm. I love creating beautiful, well functioning websites and mobile apps using React and React Native.
     I moved to Stockholm, Sweden in April 2019 to pursue a new career in web development. After completing a bootcamp at <SALT/>
     Stockholm I am now working for a startup called 'Qyre' AB in the heart of Stockholm. Currently I am working on an app
-    aimed at streamlining the media production process with regard to organization, communication and recruitment.
+    aimed at streamlining organization, communication and recruitment within media production.
 
-    My techstack: React, React Native, Express, Firebase, Happi, Cordova.
+    My techstack: React, React Native, Express, Firebase, PostgreSQL, Mongo, GraphQL
     `,
   title_2: `About?`,
   frontPage_2: `
