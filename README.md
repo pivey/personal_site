@@ -18,4 +18,5 @@ To do:
 7. add all social media links with on click anmation on button click - slide out from the left. 
 8. document the project using 'JSdocs'
 9. use couchDB or mongoDB as a database for the blog posts
+10. scrollable timeline of your web development journey - moved to stockholm to start at salt - working at qyre on desktop app - next step ... (UI circle with line to next circle - like a historic timeline. )
 
