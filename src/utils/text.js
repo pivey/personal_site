@@ -6,7 +6,7 @@ const websiteText = {
     Stockholm I am now working for a startup called 'Qyre' AB in the heart of Stockholm. Currently I am working on an app
     aimed at streamlining organization, communication and recruitment within media production.
 
-    My techstack: React, React Native, Express, Firebase, PostgreSQL, Mongo, GraphQL
+    My current techstack: React, React Native, Express, Firebase, PostgreSQL, Mongo, GraphQL
     `,
   title_2: `About?`,
   frontPage_2: `

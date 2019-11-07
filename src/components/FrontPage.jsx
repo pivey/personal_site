@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
+import Techstack from './Techstack';
 
 const PageWrapper = styled.div`
   text-align: justify;
@@ -21,7 +22,7 @@ const SectionText = styled.div`
   line-height: 1.8rem;
   height: auto;
   width: auto;
-  padding-bottom: 6rem;
+  padding-bottom: 3rem;
   color: ${props => props.theme.color};
 `;
 
@@ -34,6 +35,8 @@ function FrontPage() {
         </SectionHeader>
 
         <SectionText>{content.frontPage_1}</SectionText>
+
+        <Techstack />
 
         <SectionHeader id="About">{content.title_2}</SectionHeader>
 

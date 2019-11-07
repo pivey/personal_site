@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import reactLoogo from '../assets/reactjsLogo.svg';
+import reactLogo from '../assets/reactjsLogo.svg';
 import globals from '../utils/globals';
 
 const { flex, backgroundProvider } = globals;
@@ -31,7 +31,7 @@ const ShowcaseItem = styled.div`
     transition-duration: 0.4s;
   }
   &.reactBgc {
-    ${backgroundProvider(reactLoogo)}
+    ${backgroundProvider(reactLogo)}
     color: black;
     background-color: #ededf4;
   }
