@@ -21,3 +21,5 @@ To do:
 8. document the project using 'JSdocs'
 9. use couchDB or mongoDB as a database for the blog posts
 10. scrollable timeline of your web development journey - moved to stockholm to start at salt - working at qyre on desktop app - next step ... (UI circle with line to next circle - like a historic timeline. )
+11. slide up fade in on scroll. 
+12 . when you hover over one navbar link the others have a lower opacity
