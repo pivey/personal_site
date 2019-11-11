@@ -5,6 +5,7 @@ I'm using this project as a way portray myself to potential employers as well as
 To do:
 
 - add the golang and SQL logos to your page
+- use figma to prototype your app - you can transfer  css straight from the site, not need for guessing
 
 1. deploy and link all projects in the 'projects' section.
 
