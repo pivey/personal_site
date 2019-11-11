@@ -4,6 +4,8 @@ I'm using this project as a way portray myself to potential employers as well as
 
 To do:
 
+- add the golang and SQL logos to your page
+
 1. deploy and link all projects in the 'projects' section.
 
 - react tictactoe \*\*\* DONE
