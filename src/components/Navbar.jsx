@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { Link, animateScroll as scroll } from 'react-scroll';
 import { AppContext } from '../context/appContext.js';
 
-// import { Link as RouteLink } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
-
 export const navText = [
   { section: 'Home' }, //
   { section: 'About' },
@@ -18,9 +15,10 @@ const Nav = styled.div`
   left: 0;
   width: 100%;
   margin: 0 auto;
-  height: 4rem;
+  height: 4.5rem;
   display: flex;
   justify-content: flex-end;
+  padding-right: 2rem;
   align-items: center;
   z-index: 1000;
   background: ${props => props.theme.navColor};
@@ -85,7 +83,7 @@ function Navbar() {
             spy //
             smooth //
             offset={-80} //
-            duration={700} //
+            duration={600} //
             key={i}
           >
             <NavBtn className="noSelect" key={i}>

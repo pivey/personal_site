@@ -13,6 +13,11 @@ const { flex } = globals;
 const iconStyling = css`
   height: 6rem;
   width: 6rem;
+  transition-duration: 0.3s;
+  &:hover {
+    transform: scale(1.3);
+    transition-duration: 0.5s;
+  }
 `;
 
 const IconMother = styled.div`
@@ -24,16 +29,12 @@ const IconMother = styled.div`
 `;
 
 const Connector = styled.hr`
-border:none;
-  border-top:1px dotted ${props => props.theme.color};
-  color:#fff;
-  background-color:transparent;
-  height:3px;
-  width:50%;
-//   width: 50px;
-//   height: 0.2rem;
-//   border: 1px solid ${props => props.theme.color};
-//   background: ${props => props.theme.color};
+  border: none;
+  border-top: 1px dotted ${props => props.theme.color};
+  color: #fff;
+  background-color: transparent;
+  height: 3px;
+  width: 50%;
   margin: 0rem 0.4rem;
 `;
 
@@ -57,6 +58,11 @@ const GraphQL = styled.img`
 const FirebaseIcon = styled.img`
   height: 7rem;
   width: 6rem;
+  transition-duration: 0.3s;
+  &:hover {
+    transform: scale(1.3);
+    transition-duration: 0.5s;
+  }
 `;
 
 const Techstack = () => {

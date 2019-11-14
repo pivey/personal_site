@@ -4,7 +4,7 @@ import axios from 'axios';
 import reactLogo from '../assets/reactjsLogo.svg';
 import globals from '../utils/globals';
 
-const { flex, backgroundProvider } = globals;
+const { flex, backgroundProvider, noSelect } = globals;
 
 const Showcase = styled.div`
   height: auto;
@@ -15,6 +15,7 @@ const Showcase = styled.div`
 `;
 
 const ShowcaseItem = styled.div`
+  ${noSelect}
   ${flex('center', 'center')}
   height: 15rem;
   width: 15rem;
@@ -36,12 +37,6 @@ const ShowcaseItem = styled.div`
     background-color: #ededf4;
   }
   font-size: 1.5rem;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 `;
 
 const ProjectLink = styled.a`
