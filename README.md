@@ -4,6 +4,9 @@ I'm using this project as a way portray myself to potential employers as well as
 
 To do:
 
+- add the golang and SQL logos to your page
+- use figma to prototype your app - you can transfer  css straight from the site, not need for guessing
+
 1. deploy and link all projects in the 'projects' section.
 
 - react tictactoe \*\*\* DONE
@@ -21,3 +24,5 @@ To do:
 8. document the project using 'JSdocs'
 9. use couchDB or mongoDB as a database for the blog posts
 10. scrollable timeline of your web development journey - moved to stockholm to start at salt - working at qyre on desktop app - next step ... (UI circle with line to next circle - like a historic timeline. )
+11. slide up fade in on scroll. 
+12 . when you hover over one navbar link the others have a lower opacity
