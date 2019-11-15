@@ -84,13 +84,13 @@ const AboutListEl = styled.p`
   &:hover::before {
     background: ${props => props.theme.listBeforeOdd};
   }
-  &:active {
-    transition: all 0.8s;
-    background: #0197f6;
-    transform: scale(1.1);
-    margin-bottom: 1.5rem;
-    margin-top: 1.5rem;
-  }
+  // &:active {
+  //   transition: all 0.8s;
+  //   background: #0197f6;
+  //   transform: scale(1.1);
+  //   margin-bottom: 1.5rem;
+  //   margin-top: 1.5rem;
+  // }
   &:nth-child(1) {
     border-top-right-radius: 20px;
   }
