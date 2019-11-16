@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 import reactLogo from '../assets/reactjsLogo.svg';
 import globals from '../utils/globals';
+import construction from '../assets/underConstruction.svg';
+import vanillajs from '../assets/jslogo.png';
 
-const { flex, backgroundProvider, noSelect } = globals;
+const { flex, backgroundProvider, noSelect, textBorder, transAll } = globals;
 
 const Showcase = styled.div`
   height: auto;
@@ -15,6 +17,7 @@ const Showcase = styled.div`
 `;
 
 const ShowcaseItem = styled.div`
+  ${transAll('0.5')}
   ${noSelect}
   ${flex('center', 'center')}
   height: 15rem;
@@ -24,19 +27,44 @@ const ShowcaseItem = styled.div`
   color: white;
   font-weight: bold;
   flex-flow: dense;
+  font-size: 1.2rem;
   &:hover {
     cursor: pointer;
-    text-decoration: underline;
     background: ${props => props.theme.hoverColor};
+    color: ${props => props.theme.listBeforeEven};
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
   }
   &.reactBgc {
+    ${textBorder('white', 'black')}
     ${backgroundProvider(reactLogo)}
-    color: black;
-    background-color: #ededf4;
+    background-color: ${props => props.theme.navTextColor};
+
   }
-  font-size: 1.5rem;
+  &.vanilla {
+    ${textBorder('white', 'black')}
+    ${backgroundProvider(vanillajs)}
+    background-color: ${props => props.theme.navTextColor};
+    font-size: 1.1rem;
+  }
+  &.reactBgc:hover, &.vanilla:hover, &.construction:hover {
+    color: ${props => props.theme.hoverColor};
+  }
+  &.construction {
+    ${textBorder('white', 'black')}
+    ${backgroundProvider(construction)}
+    background-color: #ededf4;
+
+  }
+  &.hvr-reveal:before {
+    color: ${props => props.theme.hoverColor};
+  }
+
+  &.box:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: scale(1.1);
+  }
+
 `;
 
 const ProjectLink = styled.a`
@@ -56,7 +84,7 @@ function ProjectsShowcase() {
       <Showcase className="projectsContainer">
         {projects.map((e, i) => (
           <ProjectLink href={e.link} target="_blank" rel="noopener noreferrer" key={i}>
-            <ShowcaseItem className={e.bgc !== null ? 'hvr-reveal reactBgc' : 'hvr-reveal'} key={i}>
+            <ShowcaseItem className={e.bgc !== null ? `box hvr-reveal ${e.bgc}` : 'hvr-reveal'} key={i}>
               {e.name}
             </ShowcaseItem>
           </ProjectLink>

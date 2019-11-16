@@ -9,12 +9,12 @@ app.use(cors());
 
 app.get('/projects', (req, res) => {
   res.send([
-    { name: 'React tic tac toe', link: 'https://reactticktacktoe.herokuapp.com/', bgc: 'react' },
-    { name: 'Project 2', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
-    { name: 'Project 3', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
-    { name: 'Project 4', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
-    { name: 'Project 5', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
-    { name: 'Project 6', link: 'https://fakturinofrontend.herokuapp.com/', bgc: null },
+    { name: 'React tic tac toe', link: 'https://reactticktacktoe.herokuapp.com/', bgc: 'reactBgc' },
+    { name: 'React world clocks', link: 'https://reactclocks.herokuapp.com/', bgc: 'reactBgc' },
+    { name: 'Vanilla JS todo list', link: 'https://pivey.github.io/vanilla-JS-ToDo-list/', bgc: 'vanilla' },
+    { name: 'Combined kata calculator', link: 'https://salt-demo3.herokuapp.com/', bgc: 'vanilla' },
+    { name: 'Under Construction', link: '', bgc: 'construction' },
+    { name: 'Under Construction', link: '', bgc: 'construction' },
   ]);
 });
 

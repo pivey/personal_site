@@ -1,5 +1,17 @@
 import { css, keyframes } from 'styled-components';
 
+const textBorder = (textColor, borderColor) => `
+  color: ${textColor};
+  text-shadow: -2px 0 ${borderColor}, 0 2px ${borderColor}, 2px 0 ${borderColor}, 0 -2px ${borderColor};
+`;
+
+const transAll = time => `
+    -webkit-transition: all ${time}s ease;
+    -moz-transition: all ${time}s ease;
+    -o-transition: all ${time}s ease;
+    transition: all ${time}s ease;
+`;
+
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -78,6 +90,8 @@ const themes = {
   backgroundOptions,
   moveY,
   ErrorOpacity,
+  textBorder,
+  transAll,
 };
 
 export default themes;

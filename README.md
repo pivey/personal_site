@@ -4,25 +4,23 @@ I'm using this project as a way portray myself to potential employers as well as
 
 To do:
 
-- add the golang and SQL logos to your page
-- use figma to prototype your app - you can transfer  css straight from the site, not need for guessing
+- instead of that techstack intro line - add hover pop ups of what each on is.
+- use figma to prototype your app - you can transfer css straight from the site, not need for guessing
+- add an always moving 'hire me banner'just under the navbar
+- mobile view
+- add slack chat and linkedin + github social media buttons.
+- do react todo with usereducer.
+- add that construction svg to projects you are working on atm.
+- look at firebase for your SQL database storage options
 
-1. deploy and link all projects in the 'projects' section.
+**\* check for a click event outside of the div itself **
 
-- react tictactoe \*\*\* DONE
-- Unsplash_image_gallery
-- Music_events_aggregator
-- React_world_clocks
-- vanilla-JS-ToDo-list
+myRef = React.createRef();
 
-2. add a blog section with relavent articles
-3. add routing to blog page
-4. add a contact section + comment section
-5. add a scroll progress bar in the blog section
-6. link slack to the app so you can be messaged directly
-7. add all social media links with on click anmation on button click - slide out from the left.
-8. document the project using 'JSdocs'
-9. use couchDB or mongoDB as a database for the blog posts
-10. scrollable timeline of your web development journey - moved to stockholm to start at salt - working at qyre on desktop app - next step ... (UI circle with line to next circle - like a historic timeline. )
-11. slide up fade in on scroll. 
-12 . when you hover over one navbar link the others have a lower opacity
+<!-- const checkIfContains = e => {
+    if (myRef.current.contains(e.target)) {
+        doSomething();
+    }
+}
+
+<div ref={myRef} onClick={checkIfContains} /> -->

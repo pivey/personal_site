@@ -58,7 +58,6 @@
   right: 0;
   top: 0;
   bottom: 0;
-  border-color: white;
   border-style: solid;
   border-width: 0;
   -webkit-transition-property: border-width;
@@ -72,11 +71,8 @@
 .hvr-reveal:focus:before,
 .hvr-reveal:active:before {
   -webkit-transform: translateY(0);
-  /* transform: translateY(0); */
-  border-width: 5px;
+  border-width: 6px;
 }
-
-/* animation tracking-in-expand-fwd */
 
 .tracking-in-expand-fwd-top {
   -webkit-animation: tracking-in-expand-fwd-top 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) both;

@@ -17,6 +17,7 @@ const iconStyling = css`
   &:hover {
     transform: scale(1.3);
     transition-duration: 0.5s;
+    cursor: help;
   }
 `;
 
@@ -60,28 +61,26 @@ const FirebaseIcon = styled.img`
   width: 6rem;
   transition-duration: 0.3s;
   &:hover {
+    cursor: help;
     transform: scale(1.3);
     transition-duration: 0.5s;
   }
 `;
 
-const Techstack = () => {
-  const website = 'under construction';
-  return (
-    <IconMother>
-      <ReactLogoIcon src={reactLogo} />
-      <Connector />
-      <NodeIcon src={nodeLogo} />
-      <Connector />
-      <GraphQL src={graphQLLogo} />
-      <Connector />
-      <PostGresIcon src={postgresLogo} />
-      <Connector />
-      <MongoIcon src={mongoDBLogo} />
-      <Connector />
-      <FirebaseIcon src={firebaseLogo} />
-    </IconMother>
-  );
-};
+const Techstack = () => (
+  <IconMother>
+    <ReactLogoIcon src={reactLogo} />
+    <Connector />
+    <NodeIcon src={nodeLogo} />
+    <Connector />
+    <GraphQL src={graphQLLogo} />
+    <Connector />
+    <PostGresIcon src={postgresLogo} />
+    <Connector />
+    <MongoIcon src={mongoDBLogo} />
+    <Connector />
+    <FirebaseIcon src={firebaseLogo} />
+  </IconMother>
+);
 
 export default Techstack;
