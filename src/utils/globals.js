@@ -1,9 +1,12 @@
+/* eslint-disable guard-for-in */
 import { css, keyframes } from 'styled-components';
 
 const textBorder = (textColor, borderColor) => `
   color: ${textColor};
   text-shadow: -2px 0 ${borderColor}, 0 2px ${borderColor}, 2px 0 ${borderColor}, 0 -2px ${borderColor};
 `;
+
+const objSize = obj => Object.keys(obj).length;
 
 const transAll = time => `
     -webkit-transition: all ${time}s ease;
@@ -92,6 +95,7 @@ const themes = {
   ErrorOpacity,
   textBorder,
   transAll,
+  objSize,
 };
 
 export default themes;

@@ -56,13 +56,19 @@ const ShowcaseItem = styled.div`
     background-color: #ededf4;
 
   }
+
   &.hvr-reveal:before {
     color: ${props => props.theme.hoverColor};
+    color:transparent;
   }
 
   &.box:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    transform: scale(1.1);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+              0 2px 2px rgba(0,0,0,0.12),
+              0 4px 4px rgba(0,0,0,0.12),
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+    transform: scale(1.06);
   }
 
 `;

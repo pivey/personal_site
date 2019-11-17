@@ -5,7 +5,7 @@ import ProjectsShowcase from './ProjectsShowcase';
 import Techstack from './Techstack';
 import globals from '../utils/globals';
 
-const { noSelect } = globals;
+const { noSelect, textBorder, flex, transAll } = globals;
 
 const PageWrapper = styled.div`
   text-align: justify;
@@ -15,10 +15,37 @@ const PageWrapper = styled.div`
 `;
 
 const SectionHeader = styled.div`
+  ${noSelect}
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 2rem;
   color: ${props => props.theme.headerColor};
+`;
+
+const HireHolder = styled.div`
+  ${flex('center', 'center')}
+  height: auto;
+  width: auto;
+  margin: 4rem 0rem 6rem 0rem;
+`;
+
+const HireText = styled.div`
+  ${noSelect}
+  ${transAll('0.5')}
+  font-weight: 700;
+  font-size: 3.5em;
+  height: auto;
+  width: auto;
+  padding: 1.5rem 2rem;
+  border:  ${props => `1rem solid ${props.theme.headerColor}`}
+  background: repeating-linear-gradient(45deg, #e03616, #e03616 10px, #f4f4f9 10px, #f4f4f9 20px);
+  ${props => textBorder(props.theme.headerColor, 'black')}
+  &:hover {
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.09), 0 4px 2px rgba(0, 0, 0, 0.09), 0 8px 4px rgba(0, 0, 0, 0.09),
+      0 16px 8px rgba(0, 0, 0, 0.09), 0 32px 16px rgba(0, 0, 0, 0.09);
+    transform: scale(1.1);
+    cursor: pointer;
+  }
 `;
 
 const SectionText = styled.div`
@@ -42,8 +69,6 @@ const AboutListEl = styled.p`
   ${noSelect}
   position: relative;
   font-size: 1.1rem;
-  text-align: left;
-  display: block;
   padding: 12.5px 12.5px 12.5px 35px;
   color: ${props => props.theme.listText};
   &:nth-child(odd) {
@@ -67,7 +92,8 @@ const AboutListEl = styled.p`
   &:hover {
     opacity: 1;
     padding-left: 55px;
-    color: ${props => props.theme.listBeforeOdd};
+    ${props => textBorder(props.theme.listBeforeOdd, props.theme.textBorder)}
+
     cursor: pointer;
     font-weight: bold;
     font-size: 1.1rem;
@@ -94,9 +120,9 @@ const AboutListEl = styled.p`
 
 const AboutList = styled.div`
   max-width: 800px;
-  margin: 3rem auto 1rem auto;
+  margin: 3rem auto 1rem 2rem;
   &:hover ${AboutListEl} {
-    opacity: 0.4;
+    opacity: 0.6;
   }
   & ${AboutListEl}:hover {
     opacity: 1;
@@ -108,18 +134,22 @@ function FrontPage() {
     <>
       <PageWrapper>
         <SectionHeader id="Home" style={{ paddingTop: '0.5rem' }} className="tracking-in-expand-fwd-top">
-          {content.title_1}
+          <h1 className="ml11">
+            <span className="text-wrapper">
+              <span className="line line1" />
+              <span className="letters">{content.title_1}</span>
+            </span>
+          </h1>
         </SectionHeader>
 
         <SectionText>{content.frontPage_1}</SectionText>
-        <SectionText>{content.jobOffer}</SectionText>
-        <SectionText>{content.currentStack}</SectionText>
-
+        <HireHolder>
+          <HireText>{content.jobOffer}</HireText>
+        </HireHolder>
         <Techstack />
 
         <SectionHeader id="About">{content.title_2}</SectionHeader>
         <AboutText>{content.aboutIntro}</AboutText>
-
         <SectionText>
           <AboutList>
             {content.aboutInfo.map(e => (
@@ -129,9 +159,7 @@ function FrontPage() {
         </SectionText>
 
         <SectionHeader id="Projects">Projects</SectionHeader>
-
         <SectionText>{content.frontPage_3}</SectionText>
-
         <ProjectsShowcase />
       </PageWrapper>
     </>

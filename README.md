@@ -13,6 +13,14 @@ To do:
 - add that construction svg to projects you are working on atm.
 - look at firebase for your SQL database storage options
 
+Footer:
+
+- add copyright protection > symbol and year - year must update dynamically
+- small social icons > linkedin, instagram, github, twitter
+- small sitemap
+- logo
+- call to action > donate call to action button.
+
 **\* check for a click event outside of the div itself **
 
 myRef = React.createRef();

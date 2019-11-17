@@ -16,6 +16,7 @@ export const themes = {
     listOdd: '#a1c45a',
     listBeforeEven: '#ff5c00',
     listBeforeOdd: '#2e5a1c',
+    textBorder: 'white',
   },
   dark: {
     type: 'dark',
@@ -34,5 +35,6 @@ export const themes = {
     listOdd: '#320D6D',
     listBeforeEven: '#320D6D',
     listBeforeOdd: '#FFD447',
+    textBorder: 'black',
   },
 };
