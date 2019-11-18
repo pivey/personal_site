@@ -1,6 +1,6 @@
 My personal website project.
 
-check it out - deployed on firebase: https://peteriveyhansen.web.app/
+check it out - deployed on firebase: https://peteriveyhansen-be13d.web.app/
 
 I'm using this project as a way portray myself to potential employers as well as to record my journey through web development.
 
