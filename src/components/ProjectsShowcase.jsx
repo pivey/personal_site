@@ -83,7 +83,7 @@ function ProjectsShowcase() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3003/projects').then(res => setProjects(res.data));
+    axios.get('https://personal-site-backend-64292.firebaseapp.com/projects').then(res => setProjects(res.data));
   }, []);
   return (
     <>
