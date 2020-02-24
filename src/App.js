@@ -79,7 +79,9 @@ const TransitionX = styled.div`
 `;
 
 const routes = [{ path: '/', component: FrontPage }];
-const routing = routes.map(({ path, component }, i) => <Route exact path={path} component={component} key={i} />);
+const routing = routes.map(({ path, component }, i) => (
+  <Route exact path={path} component={component} key={i} />
+));
 
 function App() {
   const [theme, setTheme] = useState(lightTheme());
@@ -87,16 +89,17 @@ function App() {
   const setLightTheme = () => setTheme(lightTheme());
   const { scrollStatus } = useContext(AppContext);
 
-  console.log(`projects to include: unsplash image gallery, react world clocks - add an imput to it so user can choose,
-  vanilla JS todo list, music events aggregator, postGris final project, react ticktack toe. `);
-
   return (
     <>
       <Router>
         <ThemeProvider theme={theme}>
           <MainWrapper>
             <TransitionX>
-              <ThemeChangeHolder className={scrollStatus.show ? 'active hvr-push' : 'hidden hvr-push'}>
+              <ThemeChangeHolder
+                className={
+                  scrollStatus.show ? 'active hvr-push' : 'hidden hvr-push'
+                }
+              >
                 {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
                 {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
               </ThemeChangeHolder>

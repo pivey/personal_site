@@ -18,7 +18,6 @@ const Showcase = styled.div`
 
 const ShowcaseItem = styled.div`
   ${transAll('0.5')}
-  ${noSelect}
   ${flex('center', 'center')}
   height: 15rem;
   width: 15rem;
@@ -83,14 +82,26 @@ function ProjectsShowcase() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get('https://personal-site-backend-64292.firebaseapp.com/projects').then(res => setProjects(res.data));
+    axios
+      .get('https://personal-site-backend-64292.firebaseapp.com/projects')
+      .then(res => setProjects(res.data));
   }, []);
   return (
     <>
       <Showcase className="projectsContainer">
         {projects.map((e, i) => (
-          <ProjectLink href={e.link} target="_blank" rel="noopener noreferrer" key={i}>
-            <ShowcaseItem className={e.bgc !== null ? `box hvr-reveal ${e.bgc}` : 'hvr-reveal'} key={i}>
+          <ProjectLink
+            href={e.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            key={i}
+          >
+            <ShowcaseItem
+              className={
+                e.bgc !== null ? `box hvr-reveal ${e.bgc}` : 'hvr-reveal'
+              }
+              key={i}
+            >
               {e.name}
             </ShowcaseItem>
           </ProjectLink>

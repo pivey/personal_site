@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
 import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
 import Techstack from './Techstack';
 import globals from '../utils/globals';
 
-const { noSelect, textBorder, flex, transAll } = globals;
+const { textBorder, flex, transAll } = globals;
 
 const PageWrapper = styled.div`
   text-align: justify;
@@ -15,11 +16,22 @@ const PageWrapper = styled.div`
 `;
 
 const SectionHeader = styled.div`
-  ${noSelect}
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 2rem;
   color: ${props => props.theme.headerColor};
+`;
+
+const FrontPageHeaderHolder = styled.div`
+  width: auto;
+  height: auto;
+  word-break: break-all;
+  margin: 5rem 0rem;
+  ${flex('center', 'center')}
+`;
+
+const FrontPageHeader = styled(SectionHeader)`
+  font-size: 8rem;
 `;
 
 const HireHolder = styled.div`
@@ -30,7 +42,6 @@ const HireHolder = styled.div`
 `;
 
 const HireText = styled.div`
-  ${noSelect}
   ${transAll('0.5')}
   font-weight: 700;
   font-size: 3.5em;
@@ -66,7 +77,6 @@ const AboutText = styled(SectionText)`
 `;
 
 const AboutListEl = styled.p`
-  ${noSelect}
   position: relative;
   font-size: 1.1rem;
   padding: 12.5px 12.5px 12.5px 35px;
@@ -130,17 +140,29 @@ const AboutList = styled.div`
 `;
 
 function FrontPage() {
+  const [isVisible, setIsVisible] = useState(true);
   return (
     <>
       <PageWrapper>
-        <SectionHeader id="Home" style={{ paddingTop: '0.5rem' }} className="tracking-in-expand-fwd-top">
-          <h1 className="ml11">
-            <span className="text-wrapper">
-              <span className="line line1" />
-              <span className="letters">{content.title_1}</span>
-            </span>
-          </h1>
-        </SectionHeader>
+        <AnimatePresence>
+          {isVisible && (
+            <motion.div
+              key="modal"
+              initial={{ y: -400, opacity: 0, scale: 0.2 }}
+              animate={{
+                y: 0,
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{ duration: 2 }}
+              exit={{ opacity: 0 }}
+            >
+              <FrontPageHeaderHolder>
+                <FrontPageHeader>{content.title_1}</FrontPageHeader>
+              </FrontPageHeaderHolder>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <SectionText>{content.frontPage_1}</SectionText>
         <HireHolder>
