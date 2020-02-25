@@ -7,7 +7,7 @@ const websiteText = {
     Stockholm I started interning for 'Qyre AB' in the heart of Stockholm. Currently I am working on an app aimed at streamlining organization,
     communication and recruitment within media production.`,
 
-  jobOffer: `Hire Me!`,
+  jobOffer: `Contact`,
 
   currentStack: `My current techstack: React, React Native, Express, Firebase, PostgreSQL, Mongo, GraphQL :`,
 

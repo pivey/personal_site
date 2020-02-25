@@ -28,14 +28,21 @@ export const device = {
   belowDesktop: createMaxBreakpoint(breakpoints.desktop - 1),
 };
 
+// electric: #3CC47C
+// forest: #1e392a
+// light #e9c893
+// tin 828081
+
 export const themes = {
   light: {
     type: 'light',
     navColor: '#faffb8',
     navTextColor: '#226b80',
-    bgColor: '#c5f0a4',
-    headerColor: '#35b0ab',
-    color: '#3E4C59',
+    // bgColor: '#c5f0a4',
+    bgColor: '#828081',
+    headerColor: '#3CC47C',
+    // color: '#3E4C59',
+    color: 'white',
     searchBgColor: '#E4E7EB',
     boxShadow: '0.8rem 0.8rem 1.5rem gray',
     hoverColor: '#ffbab8',

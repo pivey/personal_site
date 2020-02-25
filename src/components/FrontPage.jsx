@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
 import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
-import Techstack from './Techstack';
 import globals from '../utils/globals';
 import WelcomeImage from './WelcomeImage';
 
@@ -13,11 +12,11 @@ const PageWrapper = styled.div`
   text-align: justify;
   text-justify: inter-word;
   width: 100vw;
-  padding: 3rem 12rem 4rem 12rem;
+  padding: 0rem 20rem 6rem 20rem;
 `;
 
 const SectionHeader = styled.div`
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: bold;
   margin-bottom: 2rem;
   color: ${props => props.theme.headerColor};
@@ -35,34 +34,35 @@ const FrontPageHeader = styled(SectionHeader)`
   font-size: 8rem;
 `;
 
-const HireHolder = styled.div`
-  ${flex('center', 'center')}
+const HireBtnWrapper = styled.div`
+  ${flex('flex-end', 'center')}
   height: auto;
   width: auto;
-  margin: 4rem 0rem 6rem 0rem;
+  margin: 4rem 4rem 0rem;
+  top: 5rem;
+  position: sticky;
 `;
 
-const HireText = styled.div`
-  ${transAll('0.5')}
+const HireButton = styled.div`
+  ${transAll('0.3')}
   font-weight: 700;
-  font-size: 3.5em;
+  font-size: 1.5rem;
   height: auto;
   width: auto;
-  padding: 1.5rem 2rem;
-  border:  ${props => `1rem solid ${props.theme.headerColor}`}
-  background: repeating-linear-gradient(45deg, #e03616, #e03616 10px, #f4f4f9 10px, #f4f4f9 20px);
-  ${props => textBorder(props.theme.headerColor, 'black')}
+  padding: 0.8rem 0.8rem;
+  border: 5px solid #3cc47c;
+  background: #1e392a;
+  ${textBorder('#3cc47c', 'black')}
   &:hover {
-    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.09), 0 4px 2px rgba(0, 0, 0, 0.09), 0 8px 4px rgba(0, 0, 0, 0.09),
-      0 16px 8px rgba(0, 0, 0, 0.09), 0 32px 16px rgba(0, 0, 0, 0.09);
-    transform: scale(1.1);
     cursor: pointer;
+    transform: scale(0.95);
+    ${textBorder('white', '#1e392a')}
   }
 `;
 
 const SectionText = styled.div`
   line-height: 2.5rem;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   height: auto;
   width: auto;
   padding-bottom: 3rem;
@@ -144,43 +144,37 @@ function FrontPage() {
   const [isVisible, setIsVisible] = useState(true);
   return (
     <>
-      <WelcomeImage />
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            key="modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2.5 }}
+            exit={{ opacity: 0 }}
+          >
+            <WelcomeImage />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <HireBtnWrapper>
+        <HireButton>{content.jobOffer}</HireButton>
+      </HireBtnWrapper>
       <PageWrapper>
-        <AnimatePresence>
-          {isVisible && (
-            <motion.div
-              key="modal"
-              initial={{ y: -400, opacity: 0, scale: 0.2 }}
-              animate={{
-                y: 0,
-                opacity: 1,
-                scale: 1,
-              }}
-              transition={{ duration: 2 }}
-              exit={{ opacity: 0 }}
-            >
-              <FrontPageHeaderHolder>
-                <FrontPageHeader>{content.title_1}</FrontPageHeader>
-              </FrontPageHeaderHolder>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+        <SectionHeader>Welcome</SectionHeader>
         <SectionText>{content.frontPage_1}</SectionText>
-        <HireHolder>
-          <HireText>{content.jobOffer}</HireText>
-        </HireHolder>
-        <Techstack />
 
-        <SectionHeader id="About">{content.title_2}</SectionHeader>
-        <AboutText>{content.aboutIntro}</AboutText>
-        <SectionText>
+        {/* <Techstack /> */}
+
+        {/* <SectionHeader id="About">{content.title_2}</SectionHeader>
+        <AboutText>{content.aboutIntro}</AboutText> */}
+        {/* <SectionText>
           <AboutList>
             {content.aboutInfo.map(e => (
               <AboutListEl>{e}</AboutListEl>
             ))}
           </AboutList>
-        </SectionText>
+        </SectionText> */}
 
         <SectionHeader id="Projects">Projects</SectionHeader>
         <SectionText>{content.frontPage_3}</SectionText>

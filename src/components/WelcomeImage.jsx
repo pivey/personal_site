@@ -25,14 +25,22 @@ const WelcomeArea = styled.div`
   position: relative;
 `;
 
-const WelcomImage = styled.img`
+const WelcomImage = styled.div`
   height: 100vh;
   width: 100vw;
+  background-image: url(${({ src }) => src});
   background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const WelcomeText = styled.div`
-  color: white;
+  width: auto;
+  height: auto;
+  padding: 1rem 1.5rem;
+  background-color: black;
+  color: #3cc47c;
   text-decoration: bold;
   font-size: 5rem;
   position: absolute;
@@ -47,7 +55,7 @@ const WelcomeImage = () => {
 
   return (
     <WelcomeArea>
-      <WelcomImage src={randomImage} source={randomImage} />
+      <WelcomImage src={randomImage} />
       <WelcomeText>
         <Typewriter
           options={{
@@ -55,17 +63,30 @@ const WelcomeImage = () => {
           }}
           onInit={typewriter => {
             typewriter
+              .pauseFor(1500)
               .typeString('Peter Ivey-Hansen')
               .pauseFor(2000)
               .deleteAll()
               .typeString('Coder')
               .deleteChars(6)
-              .pauseFor(1500)
-              .typeString('Creator')
-              .deleteChars(7)
-              .pauseFor(1500)
+              .pauseFor(1200)
+              .typeString('Creative')
+              .deleteChars(8)
+              .pauseFor(1200)
               .typeString('Frontend developer')
-              .pauseFor(2000)
+              .pauseFor(1500)
+              .deleteAll()
+              .typeString('React | Next')
+              .pauseFor(1500)
+              .deleteAll()
+              .typeString('Node | Express')
+              .pauseFor(1500)
+              .deleteAll()
+              .typeString('Firebase | GraphQL')
+              .pauseFor(1500)
+              .deleteAll()
+              .typeString('Flutter')
+              .pauseFor(1500)
               .deleteAll()
               .typeString('Stockholm, Sweden')
               .pauseFor(2000)
