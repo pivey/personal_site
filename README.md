@@ -2,9 +2,11 @@ My personal website project.
 
 check it out - deployed on firebase: https://peteriveyhansen-be13d.web.app/
 
-I'm using this project as a way portray myself to potential employers as well as to record my journey through web development.
+a personal website where people can find out about me and my work.
 
 To do:
+
+- vertical stepper for 'my journey'
 
 - instead of that techstack intro line - add hover pop ups of what each on is.
 - use figma to prototype your app - you can transfer css straight from the site, not need for guessing

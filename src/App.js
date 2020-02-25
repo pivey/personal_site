@@ -50,7 +50,7 @@ const darkTheme = () => ({
 });
 
 const MainWrapper = styled.div`
-  padding-top: 5%;
+  // padding-top: 5%;
   width: 100vw;
   height: auto;
   background: ${props => props.theme.bgColor};
@@ -94,17 +94,17 @@ function App() {
       <Router>
         <ThemeProvider theme={theme}>
           <MainWrapper>
-            <TransitionX>
-              <ThemeChangeHolder
+            {/* <TransitionX> */}
+            {/* <ThemeChangeHolder
                 className={
                   scrollStatus.show ? 'active hvr-push' : 'hidden hvr-push'
                 }
               >
                 {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
                 {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
-              </ThemeChangeHolder>
-            </TransitionX>
-            <Navbar />
+              </ThemeChangeHolder> */}
+            {/* </TransitionX> */}
+            {/* <Navbar /> */}
             {routing}
           </MainWrapper>
         </ThemeProvider>

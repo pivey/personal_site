@@ -5,6 +5,7 @@ import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
 import Techstack from './Techstack';
 import globals from '../utils/globals';
+import WelcomeImage from './WelcomeImage';
 
 const { textBorder, flex, transAll } = globals;
 
@@ -143,6 +144,7 @@ function FrontPage() {
   const [isVisible, setIsVisible] = useState(true);
   return (
     <>
+      <WelcomeImage />
       <PageWrapper>
         <AnimatePresence>
           {isVisible && (
