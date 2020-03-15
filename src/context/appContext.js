@@ -18,9 +18,16 @@ function AppContextProvider({ children }) {
     show: true,
   });
 
+  const [contactFormShow, setContactFormShow] = useState(false);
+  const [showError, setShowError] = useState(false);
+
   const state = {
     scrollStatus,
     setScrollStatus,
+    contactFormShow,
+    setContactFormShow,
+    showError,
+    setShowError,
     reRoute,
   };
 

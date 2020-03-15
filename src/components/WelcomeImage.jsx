@@ -1,5 +1,3 @@
-// create a parallax top image with a title
-// - the whole thing should smoothly animate in
 import React from 'react';
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
@@ -20,7 +18,6 @@ const WelcomeArea = styled.div`
   ${flex('flex-start', 'flex-end')}
   width: 100vw;
   height: 100vh;
-  background-color: mistyrose;
   font-size: 5rem;
   position: relative;
 `;

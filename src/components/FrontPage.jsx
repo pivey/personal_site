@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Frame, Scroll } from 'framer';
 import styled from 'styled-components';
 import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
 import globals from '../utils/globals';
 import WelcomeImage from './WelcomeImage';
+// import SlackButton from './SlackButton';
+// import debounce from 'lodash/debounce';
+import ContactForm from './ContactForm';
+import { AppContext } from '../context/appContext';
 
-const { textBorder, flex, transAll } = globals;
+const { textBorder, flex, transAll, noSelect } = globals;
 
 const PageWrapper = styled.div`
   text-align: justify;
@@ -45,6 +50,7 @@ const HireBtnWrapper = styled.div`
 
 const HireButton = styled.div`
   ${transAll('0.3')}
+  ${noSelect}
   font-weight: 700;
   font-size: 1.5rem;
   height: auto;
@@ -142,6 +148,23 @@ const AboutList = styled.div`
 
 function FrontPage() {
   const [isVisible, setIsVisible] = useState(true);
+
+  const { contactFormShow, setContactFormShow } = useContext(AppContext);
+
+  // useEffect(() => {
+  //   const onScroll = e => {
+  //     window.pageYOffset > window.innerHeight
+  //       ? setSlackVisible(true)
+  //       : setSlackVisible(false);
+  //   };
+  //   window.addEventListener(
+  //     'scroll',
+  //     debounce(onScroll, 1, { trailing: true, leading: true }),
+  //   );
+
+  //   return () => window.removeEventListener('scroll', onScroll);
+  // }, [slackVisible]);
+
   return (
     <>
       <AnimatePresence>
@@ -158,14 +181,16 @@ function FrontPage() {
         )}
       </AnimatePresence>
       <HireBtnWrapper>
-        <HireButton>{content.jobOffer}</HireButton>
+        <HireButton onClick={() => setContactFormShow(true)}>
+          {content.jobOffer}
+        </HireButton>
       </HireBtnWrapper>
       <PageWrapper>
         <SectionHeader>Welcome</SectionHeader>
         <SectionText>{content.frontPage_1}</SectionText>
-
+        {/* {slackVisible && <ContactForm />} */}
+        {contactFormShow && <ContactForm display={contactFormShow} />}
         {/* <Techstack /> */}
-
         {/* <SectionHeader id="About">{content.title_2}</SectionHeader>
         <AboutText>{content.aboutIntro}</AboutText> */}
         {/* <SectionText>
@@ -175,7 +200,7 @@ function FrontPage() {
             ))}
           </AboutList>
         </SectionText> */}
-
+        {/* <SlackButton visible={slackVisible} /> */}
         <SectionHeader id="Projects">Projects</SectionHeader>
         <SectionText>{content.frontPage_3}</SectionText>
         <ProjectsShowcase />

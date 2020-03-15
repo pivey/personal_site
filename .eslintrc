@@ -1,24 +1,25 @@
 {
-  "extends": ["wesbos"],
-
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["plugin:prettier/recommended"],
+  "plugins": ["prettier"],
   "rules": {
-    "react/prop-types": 0,
-    "react/destructuring-assignment": 0,
-    "react-hooks/exhaustive-deps": 0,
-    "no-restricted-syntax": 0,
-    "no-prototype-builtins": 0,
-    "no-trailing-spaces": [2, { "skipBlankLines": true }],
-    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
-    "array-element-newline": ["error", "consistent"],
-
     "prettier/prettier": [
       "error",
       {
-        "trailingComma": "es5",
+        "printWidth": 80,
+        "tabWidth": 2,
+        "semi": true,
         "singleQuote": true,
-        "doubleQuote": true,
-        "printWidth": 120,
-        "tabWidth": 2
+        "trailingComma": "es6",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "endOfLine": "auto"
       }
     ]
   }
