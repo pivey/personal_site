@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import Typewriter from 'typewriter-effect';
 import globals from '../utils/globals';
@@ -11,6 +11,7 @@ import {
   BGC_6,
   BGC_7,
 } from '../assets/images/index';
+import { AppContext } from '../context/appContext';
 
 const { flex } = globals;
 
@@ -46,13 +47,17 @@ const WelcomeText = styled.div`
 `;
 
 const WelcomeImage = () => {
+  const { frontPageImage, setFrontPageImage } = useContext(AppContext);
   const imageSrc = [BGC_1, BGC_2, BGC_3, BGC_4, BGC_5, BGC_6, BGC_7];
-  const randomizer = Math.floor(Math.random() * imageSrc.length);
-  const randomImage = imageSrc[randomizer];
+  useEffect(() => {
+    const randomizer = Math.floor(Math.random() * imageSrc.length);
+    const randomImage = imageSrc[randomizer];
+    setFrontPageImage(randomImage);
+  }, []);
 
   return (
     <WelcomeArea>
-      <WelcomImage src={randomImage} />
+      <WelcomImage src={frontPageImage} />
       <WelcomeText>
         <Typewriter
           options={{

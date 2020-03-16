@@ -149,7 +149,12 @@ const AboutList = styled.div`
 function FrontPage() {
   const [isVisible, setIsVisible] = useState(true);
 
-  const { contactFormShow, setContactFormShow } = useContext(AppContext);
+  const {
+    contactFormShow,
+    setContactFormShow,
+    contactFormInitState,
+    setContactFormValues,
+  } = useContext(AppContext);
 
   // useEffect(() => {
   //   const onScroll = e => {
@@ -181,7 +186,12 @@ function FrontPage() {
         )}
       </AnimatePresence>
       <HireBtnWrapper>
-        <HireButton onClick={() => setContactFormShow(true)}>
+        <HireButton
+          onClick={() => {
+            setContactFormValues({ ...contactFormInitState });
+            setContactFormShow(true);
+          }}
+        >
           {content.jobOffer}
         </HireButton>
       </HireBtnWrapper>

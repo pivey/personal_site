@@ -4,6 +4,7 @@ import globals from '../utils/globals';
 import { Formik } from 'formik';
 import { AppContext } from '../context/appContext';
 import selectArrow from '../assets/selectArrow.svg';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const { flex } = globals;
 
@@ -76,15 +77,18 @@ const StyledForm = styled.form`
 `;
 
 const ErrorMsg = styled.div`
+  min-width: 100%;
   position: absolute;
-  top: -80px;
-  width: 100%;
+  left: 50%;
+  bottom:-5rem;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%)
   min-height: 2rem;
   margin: 1rem 0rem;
   color: black;
   font-weight: bold;
   padding: 1rem;
-  background-color: rgba(223, 42, 42, 0.8);
+  background-color: rgba(223, 42, 42, 0.6);
   font-size: 1rem;
   border-radius: 5px;
   text-align: center;
@@ -161,49 +165,60 @@ const SubjectTextArea = styled.textarea`
   }
 `;
 
-const initValues = {
+const placeholders = {
   firstName: 'First name',
   lastName: 'Last name',
   email: 'Email address',
   subject: 'Freelance work',
-  phone: 'eg. 07506681217',
-  message: '',
+  phone: '0750*******',
+  message: 'Write your message here',
   sendBtn: 'Send',
   cancelBtn: 'cancel',
   selectOptions: ['Freelance work', 'Say hi!', 'Feedback'],
 };
 
 const ContactForm = ({ display }) => {
-  const { setContactFormShow, showError, setShowError } = useContext(
-    AppContext,
-  );
+  const {
+    setContactFormShow,
+    showError,
+    setShowError,
+    contactFormValues,
+    setContactFormValues,
+  } = useContext(AppContext);
   return (
     <Modal display={display}>
       <FormMother>
         <Formik
           enableReinitialize
           initialValues={{
-            firstName: initValues.firstName,
-            lastName: initValues.lastName,
-            email: initValues.email,
-            subject: initValues.subject,
-            phone: initValues.phone,
-            message: initValues.message,
+            firstName: contactFormValues.firstName,
+            lastName: contactFormValues.lastName,
+            email: contactFormValues.email,
+            subject: contactFormValues.subject,
+            phone: contactFormValues.phone,
+            message: contactFormValues.message,
           }}
           validate={values => {
             const errors = {};
+            if (!values.firstName) {
+              errors.firstName = 'Please include your first name';
+            }
+            if (!values.lastName) {
+              errors.lastName = 'Please include your last name';
+            }
             if (!values.email) {
-              errors.email = 'Required';
+              errors.email = 'Please include an email';
             } else if (
               !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
             ) {
               errors.email = 'Invalid email address';
             }
+
             setShowError(true);
             return errors;
           }}
           onSubmit={values => {
-            console.log('submitting values', values);
+            console.log('values', values);
           }}
         >
           {({
@@ -224,10 +239,19 @@ const ContactForm = ({ display }) => {
                     </TitleHolder>
 
                     <StyledInput
+                      autoFocus
                       type="text"
                       name="firstName"
-                      onChange={handleChange}
-                      placeholder={values.firstName}
+                      value={contactFormValues.firstName}
+                      onChange={e =>
+                        setContactFormValues(prevState => {
+                          return {
+                            ...prevState,
+                            firstName: e.target.value,
+                          };
+                        })
+                      }
+                      placeholder={placeholders.firstName}
                       autoComplete="off"
                     />
                   </InputWrapperColumn>
@@ -235,8 +259,16 @@ const ContactForm = ({ display }) => {
                     <StyledInput
                       type="text"
                       name="lastName"
-                      onChange={handleChange}
-                      placeholder={values.lastName}
+                      value={contactFormValues.lastName}
+                      onChange={e =>
+                        setContactFormValues(prevState => {
+                          return {
+                            ...prevState,
+                            lastName: e.target.value,
+                          };
+                        })
+                      }
+                      placeholder={placeholders.lastName}
                       autoComplete="off"
                     />
                   </InputWrapperColumn>
@@ -250,8 +282,16 @@ const ContactForm = ({ display }) => {
                     <StyledInput
                       type="email"
                       name="email"
-                      onChange={handleChange}
-                      placeholder={values.email}
+                      value={contactFormValues.email}
+                      onChange={e =>
+                        setContactFormValues(prevState => {
+                          return {
+                            ...prevState,
+                            email: e.target.value,
+                          };
+                        })
+                      }
+                      placeholder={placeholders.email}
                       autoComplete="off"
                     />
                   </InputWrapperColumn>
@@ -261,10 +301,18 @@ const ContactForm = ({ display }) => {
                       <Title>*</Title>
                     </TitleHolder>
                     <StyledInput
-                      type="phone"
+                      type="number"
                       name="phone"
-                      onChange={handleChange}
-                      placeholder={values.phone}
+                      value={contactFormValues.phone}
+                      onChange={e =>
+                        setContactFormValues(prevState => {
+                          return {
+                            ...prevState,
+                            phone: e.target.value,
+                          };
+                        })
+                      }
+                      placeholder={placeholders.phone}
                       autoComplete="off"
                     />
                   </InputWrapperColumn>
@@ -276,9 +324,17 @@ const ContactForm = ({ display }) => {
                       <Title>*</Title>
                     </TitleHolder>
                     <SubjectSelect
-                      onChange={e => (values.subject = e.target.value)}
+                      value={contactFormValues.subject}
+                      onChange={e =>
+                        setContactFormValues(prevState => {
+                          return {
+                            ...prevState,
+                            subject: e.target.value,
+                          };
+                        })
+                      }
                     >
-                      {initValues.selectOptions.map(el => {
+                      {placeholders.selectOptions.map(el => {
                         if (el === 'Freelance work') {
                           return <option selected="selected">{el}</option>;
                         } else {
@@ -296,35 +352,59 @@ const ContactForm = ({ display }) => {
                     </TitleHolder>
                     <SubjectTextArea
                       cols="30"
-                      rows="4"
+                      rows="5"
                       name="message"
-                      placeholder="Write your message here"
-                      onChange={e => (values.message = e.target.value)}
+                      placeholder={placeholders.message}
+                      value={contactFormValues.message}
+                      onChange={e =>
+                        setContactFormValues(prevState => {
+                          return {
+                            ...prevState,
+                            message: e.target.value,
+                          };
+                        })
+                      }
                     />
                   </InputWrapperColumn>
                 </InputWrapperRow>
-                {/* <ErrorMsg visible={showError}>
-                  {errors.email && touched.email && errors.email}
-                </ErrorMsg> */}
+                <AnimatePresence>
+                  {showError && (
+                    <motion.div
+                      key="error"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{
+                        duration: 0.8,
+                        stop: 4,
+                      }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <ErrorMsg visible={showError}>
+                        {errors.firstName ||
+                          errors.lastName ||
+                          errors.email ||
+                          errors.phone ||
+                          errors.message}
+                      </ErrorMsg>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
                 <ButtonHolder>
                   <FormButton
                     type="button"
                     onClick={() => setContactFormShow(false)}
                   >
-                    {initValues.cancelBtn}
+                    {placeholders.cancelBtn}
                   </FormButton>
                   <FormButton
                     onClick={() => {
-                      console.log('form submitted successfully');
-                      // setContactFormShow(false);
-
-                      // setTimeout(() => {
-                      //   setShowError(false);
-                      // }, 2000);
+                      setTimeout(() => {
+                        setShowError(false);
+                      }, 2000);
                     }}
                     type="submit"
                   >
-                    {initValues.sendBtn}
+                    {placeholders.sendBtn}
                   </FormButton>
                 </ButtonHolder>
               </StyledForm>

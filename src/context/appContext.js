@@ -18,16 +18,34 @@ function AppContextProvider({ children }) {
     show: true,
   });
 
+  const contactFormInitState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    subject: '',
+    phone: '',
+    message: '',
+  };
+
   const [contactFormShow, setContactFormShow] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [frontPageImage, setFrontPageImage] = useState('');
+  const [contactFormValues, setContactFormValues] = useState({
+    ...contactFormInitState,
+  });
 
   const state = {
     scrollStatus,
     setScrollStatus,
     contactFormShow,
     setContactFormShow,
+    contactFormValues,
+    setContactFormValues,
+    contactFormInitState,
     showError,
     setShowError,
+    frontPageImage,
+    setFrontPageImage,
     reRoute,
   };
 
