@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import { AppContext } from '../context/appContext';
 import selectArrow from '../assets/selectArrow.svg';
 import { AnimatePresence, motion } from 'framer-motion';
+import emailjs from 'emailjs-com';
 
 const { flex } = globals;
 
@@ -178,12 +179,41 @@ const placeholders = {
 };
 
 const ContactForm = ({ display }) => {
+  const isObjectEmpty = obj => Object.keys(obj).length === 0;
+  const regex = {
+    name: /^[a-z\d]{1,15}$/i,
+    email: /^([A-Za-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+  };
+
+  const info = {
+    service: 'default_service',
+    template: 'thank_you_for_contacting_me_template',
+    userID: 'user_tshCUzSkkbbEc5SZJgFzT',
+  };
+
+  // const sendEmail = e => {
+  //   e.preventDefault();
+
+  //   emailjs
+  //     .send(info.service, info.template, contactFormValues, info.userID)
+  //     .then(
+  //       result => {
+  //         console.log(result.text);
+  //       })
+  //       error => {
+  //         console.log(error.text);
+  //       },
+  //     );
+  // };
+
   const {
-    setContactFormShow,
     showError,
+    setContactFormShow,
     setShowError,
     contactFormValues,
     setContactFormValues,
+    submitForm,
+    setSubmitForm,
   } = useContext(AppContext);
   return (
     <Modal display={display}>
@@ -202,23 +232,36 @@ const ContactForm = ({ display }) => {
             const errors = {};
             if (!values.firstName) {
               errors.firstName = 'Please include your first name';
+            } else if (!regex.name.test(values.firstName)) {
+              errors.firstName = 'Invalid first name';
             }
             if (!values.lastName) {
               errors.lastName = 'Please include your last name';
+            } else if (!regex.name.test(values.lastName)) {
+              errors.lastName = 'Invalid last name';
             }
             if (!values.email) {
               errors.email = 'Please include an email';
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
+            } else if (!regex.email.test(values.email)) {
               errors.email = 'Invalid email address';
             }
-
-            setShowError(true);
+            console.log(regex.name.test(values.firstName), 'regex test');
+            if (!isObjectEmpty(errors)) {
+              setShowError(true);
+              setTimeout(() => {
+                setShowError(false);
+              }, 2000);
+            }
             return errors;
           }}
           onSubmit={values => {
             console.log('values', values);
+            setContactFormShow(false);
+            emailjs
+              .send(info.service, info.template, contactFormValues, info.userID)
+              .then(result => {
+                console.log(result.text);
+              });
           }}
         >
           {({
@@ -228,6 +271,7 @@ const ContactForm = ({ display }) => {
             handleChange,
             handleSubmit,
             isSubmitting,
+            setSubmitting,
           }) => (
             <>
               <StyledForm onSubmit={handleSubmit}>
@@ -243,14 +287,15 @@ const ContactForm = ({ display }) => {
                       type="text"
                       name="firstName"
                       value={contactFormValues.firstName}
-                      onChange={e =>
+                      onChange={e => {
+                        const val = e.target.value;
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            firstName: e.target.value,
+                            firstName: val,
                           };
-                        })
-                      }
+                        });
+                      }}
                       placeholder={placeholders.firstName}
                       autoComplete="off"
                     />
@@ -260,14 +305,15 @@ const ContactForm = ({ display }) => {
                       type="text"
                       name="lastName"
                       value={contactFormValues.lastName}
-                      onChange={e =>
+                      onChange={e => {
+                        const val = e.target.value;
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            lastName: e.target.value,
+                            lastName: val,
                           };
-                        })
-                      }
+                        });
+                      }}
                       placeholder={placeholders.lastName}
                       autoComplete="off"
                     />
@@ -283,14 +329,15 @@ const ContactForm = ({ display }) => {
                       type="email"
                       name="email"
                       value={contactFormValues.email}
-                      onChange={e =>
+                      onChange={e => {
+                        const val = e.target.value;
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            email: e.target.value,
+                            email: val,
                           };
-                        })
-                      }
+                        });
+                      }}
                       placeholder={placeholders.email}
                       autoComplete="off"
                     />
@@ -304,14 +351,15 @@ const ContactForm = ({ display }) => {
                       type="number"
                       name="phone"
                       value={contactFormValues.phone}
-                      onChange={e =>
+                      onChange={e => {
+                        const val = e.target.value;
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            phone: e.target.value,
+                            phone: val,
                           };
-                        })
-                      }
+                        });
+                      }}
                       placeholder={placeholders.phone}
                       autoComplete="off"
                     />
@@ -325,14 +373,15 @@ const ContactForm = ({ display }) => {
                     </TitleHolder>
                     <SubjectSelect
                       value={contactFormValues.subject}
-                      onChange={e =>
+                      onChange={e => {
+                        const val = e.target.value;
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            subject: e.target.value,
+                            subject: val,
                           };
-                        })
-                      }
+                        });
+                      }}
                     >
                       {placeholders.selectOptions.map(el => {
                         if (el === 'Freelance work') {
@@ -356,14 +405,15 @@ const ContactForm = ({ display }) => {
                       name="message"
                       placeholder={placeholders.message}
                       value={contactFormValues.message}
-                      onChange={e =>
+                      onChange={e => {
+                        const val = e.target.value;
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            message: e.target.value,
+                            message: val,
                           };
-                        })
-                      }
+                        });
+                      }}
                     />
                   </InputWrapperColumn>
                 </InputWrapperRow>
@@ -380,11 +430,7 @@ const ContactForm = ({ display }) => {
                       exit={{ opacity: 0 }}
                     >
                       <ErrorMsg visible={showError}>
-                        {errors.firstName ||
-                          errors.lastName ||
-                          errors.email ||
-                          errors.phone ||
-                          errors.message}
+                        {errors.firstName || errors.lastName || errors.email}
                       </ErrorMsg>
                     </motion.div>
                   )}
@@ -397,10 +443,10 @@ const ContactForm = ({ display }) => {
                     {placeholders.cancelBtn}
                   </FormButton>
                   <FormButton
-                    onClick={() => {
-                      setTimeout(() => {
-                        setShowError(false);
-                      }, 2000);
+                    onSubmit={() => {
+                      if (!Object.keys(errors).length) {
+                        handleSubmit();
+                      }
                     }}
                     type="submit"
                   >

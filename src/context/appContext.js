@@ -22,13 +22,14 @@ function AppContextProvider({ children }) {
     firstName: '',
     lastName: '',
     email: '',
-    subject: '',
+    subject: 'Freelance Work',
     phone: '',
     message: '',
   };
 
   const [contactFormShow, setContactFormShow] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [submitForm, setSubmitForm] = useState(false);
   const [frontPageImage, setFrontPageImage] = useState('');
   const [contactFormValues, setContactFormValues] = useState({
     ...contactFormInitState,
@@ -47,6 +48,8 @@ function AppContextProvider({ children }) {
     frontPageImage,
     setFrontPageImage,
     reRoute,
+    submitForm,
+    setSubmitForm,
   };
 
   return <AppContext.Provider value={state}>{children}</AppContext.Provider>;
