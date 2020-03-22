@@ -1,25 +1,25 @@
 @font-face {
-  font-family: "Matter";
+  font-family: 'Matter';
   font-style: normal;
   font-weight: normal;
-  src: url("../assets/matter-regular.woff2");
+  src: url('../assets/matter-regular.woff2');
 }
 @font-face {
-  font-family: "Matter";
+  font-family: 'Matter';
   font-style: normal;
   font-weight: 500;
-  src: url("../assets/matter-medium.woff2");
+  src: url('../assets/matter-medium.woff2');
 }
 @font-face {
-  font-family: "Matter";
+  font-family: 'Matter';
   font-style: light;
   font-weight: 100;
-  src: url("../assets/matter-light.woff2");
+  src: url('../assets/matter-light.woff2');
 }
 
 body,
 html {
-  font-family: "Matter";
+  font-family: 'Matter';
   height: 100%;
   width: 100%;
 }
@@ -40,4 +40,46 @@ select:focus,
 textarea:focus,
 button:focus {
   outline: 0 none;
+}
+
+@keyframes blob1Transform {
+  0% {
+    transform: scale(1) translate(10px, -80px);
+  }
+  38% {
+    transform: scale(0.8, 1) translate(100vw, 30vh) rotate(180deg);
+  }
+  40% {
+    transform: scale(0.8, 1) translate(100vw, 30vh) rotate(180deg);
+  }
+  78% {
+    transform: scale(1.15) translate(0vw, 45vh) rotate(-40deg);
+  }
+  80% {
+    transform: scale(1.15) translate(0vw, 45vh) rotate(-40deg);
+  }
+  100% {
+    transform: scale(1) translate(10px, -80px);
+  }
+}
+
+@keyframes blob2Transform {
+  0% {
+    transform: scale(1.2) translate(-30vw, 0vh);
+  }
+  38% {
+    transform: scale(0.8, 1) translate(5vw, 20vh) rotate(80deg);
+  }
+  40% {
+    transform: scale(0.8, 1) translate(5vw, 20vh) rotate(80deg);
+  }
+  78% {
+    transform: scale(1.15) translate(10vw, 35vh) rotate(-40deg);
+  }
+  80% {
+    transform: scale(1.15) translate(10vw, 35vh) rotate(-40deg);
+  }
+  100% {
+    transform: scale(1.2) translate(-30vw, 0vh);
+  }
 }

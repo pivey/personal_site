@@ -181,7 +181,7 @@ const placeholders = {
 const ContactForm = ({ display }) => {
   const isObjectEmpty = obj => Object.keys(obj).length === 0;
   const regex = {
-    name: /^[a-z\d]{1,15}$/i,
+    name: /^[A-Za-z\d]{1,15}$/i,
     email: /^([A-Za-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
   };
 
@@ -191,20 +191,10 @@ const ContactForm = ({ display }) => {
     userID: 'user_tshCUzSkkbbEc5SZJgFzT',
   };
 
-  // const sendEmail = e => {
-  //   e.preventDefault();
-
-  //   emailjs
-  //     .send(info.service, info.template, contactFormValues, info.userID)
-  //     .then(
-  //       result => {
-  //         console.log(result.text);
-  //       })
-  //       error => {
-  //         console.log(error.text);
-  //       },
-  //     );
-  // };
+  const capitalize = s => {
+    if (typeof s !== 'string') return '';
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   const {
     showError,
@@ -245,7 +235,6 @@ const ContactForm = ({ display }) => {
             } else if (!regex.email.test(values.email)) {
               errors.email = 'Invalid email address';
             }
-            console.log(regex.name.test(values.firstName), 'regex test');
             if (!isObjectEmpty(errors)) {
               setShowError(true);
               setTimeout(() => {
@@ -259,9 +248,15 @@ const ContactForm = ({ display }) => {
             setContactFormShow(false);
             emailjs
               .send(info.service, info.template, contactFormValues, info.userID)
-              .then(result => {
-                console.log(result.text);
-              });
+              .then(
+                result => {
+                  result.status === 200 &&
+                    console.log('Email sent', result.status, result.text);
+                },
+                err => {
+                  console.log('Email failted to send', err);
+                },
+              );
           }}
         >
           {({
@@ -292,7 +287,7 @@ const ContactForm = ({ display }) => {
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            firstName: val,
+                            firstName: capitalize(val),
                           };
                         });
                       }}
@@ -310,7 +305,7 @@ const ContactForm = ({ display }) => {
                         setContactFormValues(prevState => {
                           return {
                             ...prevState,
-                            lastName: val,
+                            lastName: capitalize(val),
                           };
                         });
                       }}

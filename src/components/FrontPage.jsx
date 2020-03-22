@@ -6,8 +6,6 @@ import content from '../utils/text';
 import ProjectsShowcase from './ProjectsShowcase';
 import globals from '../utils/globals';
 import WelcomeImage from './WelcomeImage';
-// import SlackButton from './SlackButton';
-// import debounce from 'lodash/debounce';
 import ContactForm from './ContactForm';
 import { AppContext } from '../context/appContext';
 
