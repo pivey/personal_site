@@ -17,14 +17,14 @@ const PageWrapper = styled.div`
   text-align: justify;
   text-justify: inter-character;
   width: 100vw;
-  @media ${device.laptop} {
-    padding: 0rem 20rem 6rem 20rem;
-  }
   @media ${device.tablet} {
     padding: 0rem 5rem 6rem 5rem;
   }
   @media ${device.belowMobileL} {
     padding: 0rem 2.5rem 5rem 2.5rem;
+  }
+  @media ${device.laptop} {
+    padding: 0rem 20rem 6rem 20rem;
   }
 `;
 
@@ -47,7 +47,11 @@ const HireBtnWrapper = styled.div`
   top: 5rem;
   position: sticky;
   z-index: 999;
-  @media ${device.belowMobileL} {
+  @media ${device.belowLaptop} {
+    margin: 0rem;
+    margin-top: 4rem;
+  }
+  @media ${device.belowTablet} {
     margin: 0rem;
     margin-top: 2rem;
   }
@@ -69,16 +73,40 @@ const HireButton = styled.div`
     transform: scale(0.95);
     ${textBorder('white', '#1e392a')}
   }
-  @media ${device.belowMobileL} {
+  @media ${device.belowLaptop} {
     transform-origin: bottom right;
     transform: rotate(270deg);
-    font-size: 0.9rem;
-    border: 2px solid #3cc47c;
+    font-size: 1.2rem;
+    border: 4px solid #3cc47c;
     border-bottom: none;
-    padding: 0.4rem;
+    padding: 0.5rem;
     &:hover {
       transform-origin: bottom right;
       transform: rotate(270deg);
+    }
+    @media ${device.belowTablet} {
+      transform-origin: bottom right;
+      transform: rotate(270deg);
+      font-size: 0.9rem;
+      border: 2px solid #3cc47c;
+      border-bottom: none;
+      padding: 0.4rem;
+      &:hover {
+        transform-origin: bottom right;
+        transform: rotate(270deg);
+      }
+    }
+    @media ${device.belowMobileL} {
+      transform-origin: bottom right;
+      transform: rotate(270deg);
+      font-size: 0.9rem;
+      border: 2px solid #3cc47c;
+      border-bottom: none;
+      padding: 0.4rem;
+      &:hover {
+        transform-origin: bottom right;
+        transform: rotate(270deg);
+      }
     }
   }
 `;
@@ -151,6 +179,12 @@ const StyledAnchor = styled.a`
   font-weight: bold;
 `;
 
+const BoldText = styled.b`
+  font-weight: bold;
+  font-size: 110%;
+  color: orange;
+`;
+
 const FrontPage = () => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -171,10 +205,12 @@ const FrontPage = () => {
 
   const {
     frontPage_1,
+    frontPage_2,
     frontPage_3,
     jobOffer,
     projectsTitle,
     welcomeTitle,
+    advisory,
   } = content;
 
   const welcomeLinks = {
@@ -213,8 +249,8 @@ const FrontPage = () => {
       </HireBtnWrapper>
       <PageWrapper>
         <SectionHeader>{welcomeTitle}</SectionHeader>
-
-        <SectionText markdown={frontPage_1} replacements={welcomeLinks} />
+        <SectionText markdown={frontPage_1} />
+        <SectionText markdown={frontPage_2} replacements={welcomeLinks} />
 
         {contactFormShow && <ContactForm display={contactFormShow} />}
         {/*
@@ -226,6 +262,12 @@ const FrontPage = () => {
          */}
         <SectionHeader id="Projects">{projectsTitle}</SectionHeader>
         <SectionText markdown={frontPage_3} />
+        <SectionText
+          markdown={advisory}
+          replacements={{
+            timeToLoad: <BoldText>up to 1 minute to load</BoldText>,
+          }}
+        />
         <ProjectsShowcase />
       </PageWrapper>
     </>

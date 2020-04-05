@@ -30,11 +30,13 @@ const WelcomeArea = styled.div`
 
 const Blob1 = styled.div`
   fill: #0a8754;
-  width: 25vw;
   z-index: -1;
   animation: blob1Transform 20s ease-in-out infinite;
   transform-origin: 50%;
-  @media ${device.tablet} {
+  @media ${device.belowMobileL} {
+    width: 60vw;
+  }
+  @media ${device.belowTablet} {
     width: 45vw;
   }
   @media ${device.laptop} {
@@ -46,8 +48,11 @@ const Blob2 = styled.div`
   fill: #634133;
   z-index: -1;
   animation: blob2Transform 15s ease-in-out infinite;
-  transform-origin: -100% -100%;
-  @media ${device.tablet} {
+  transform-origin: -100%;
+  @media ${device.belowMobileL} {
+    width: 60vw;
+  }
+  @media ${device.belowTablet} {
     width: 45vw;
   }
   @media ${device.laptop} {

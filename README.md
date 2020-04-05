@@ -10,11 +10,9 @@ To do:
 
 - instead of that techstack intro line - add hover pop ups of what each on is.
 - use figma to prototype your app - you can transfer css straight from the site, not need for guessing
-- add an always moving 'hire me banner'just under the navbar
 - mobile view
 - add slack chat and linkedin + github social media buttons.
-- do react todo with usereducer.
-- add that construction svg to projects you are working on atm.
+- do react todo with usereducer, deploy and add to projects.
 - look at firebase for your SQL database storage options
 
 Footer:

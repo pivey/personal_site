@@ -15,6 +15,9 @@ const Container = styled.div`
     line-height: 2rem;
     text-align: left;
   }
+  @media ${device.belowLaptop} {
+    padding-bottom: 2rem;
+  }
 `;
 
 const SectionText = props => {
