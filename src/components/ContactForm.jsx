@@ -6,6 +6,7 @@ import { AppContext } from '../context/appContext';
 import selectArrow from '../assets/selectArrow.svg';
 import { AnimatePresence, motion } from 'framer-motion';
 import emailjs from 'emailjs-com';
+import { device } from '../utils/themes';
 
 const { flex } = globals;
 
@@ -29,6 +30,10 @@ const FormMother = styled.div`
   width: auto;
   padding: 2rem;
   position: relative;
+  @media ${device.belowMobileL} {
+    height: 100vh;
+    width: 100vw;
+  }
 `;
 
 const Title = styled.p`
@@ -94,6 +99,14 @@ const ErrorMsg = styled.div`
   border-radius: 5px;
   text-align: center;
   visibility: ${({ visible }) => (visible ? 'visible' : 'hidden')};
+  @media ${device.belowMobileL} {
+    z-index:1000;
+    top: 0px;
+    min-width:80vw;
+    min-height: 2rem;
+    max-height: 2rem;
+    ${flex('center', 'center')}
+  }
 `;
 
 const ButtonHolder = styled.div`
@@ -149,6 +162,9 @@ const SubjectSelect = styled.select`
   &:focus {
     border: 1px solid green;
   }
+  @media ${device.belowMobileL} {
+    background-size: 15% 70%;
+  }
 `;
 
 const SubjectTextArea = styled.textarea`
@@ -163,6 +179,13 @@ const SubjectTextArea = styled.textarea`
   }
   &:focus {
     border: 1px solid green;
+  }
+`;
+
+const StyledMotionDiv = styled(motion.div)`
+  @media ${device.belowMobileL} {
+    position: absolute;
+    top: 0px;
   }
 `;
 
@@ -414,7 +437,7 @@ const ContactForm = ({ display }) => {
                 </InputWrapperRow>
                 <AnimatePresence>
                   {showError && (
-                    <motion.div
+                    <StyledMotionDiv
                       key="error"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -427,7 +450,7 @@ const ContactForm = ({ display }) => {
                       <ErrorMsg visible={showError}>
                         {errors.firstName || errors.lastName || errors.email}
                       </ErrorMsg>
-                    </motion.div>
+                    </StyledMotionDiv>
                   )}
                 </AnimatePresence>
                 <ButtonHolder>

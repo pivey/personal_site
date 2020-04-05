@@ -28,18 +28,13 @@ export const device = {
   belowDesktop: createMaxBreakpoint(breakpoints.desktop - 1),
 };
 
-// electric: #3CC47C
-// forest: #1e392a
-// light #e9c893
-// tin 828081
-
 export const themes = {
   light: {
     type: 'light',
     navColor: '#faffb8',
     navTextColor: '#226b80',
     // bgColor: '#c5f0a4',
-    bgColor: '#828081',
+    bgColor: '#1e392a',
     headerColor: '#3CC47C',
     // color: '#3E4C59',
     color: 'white',

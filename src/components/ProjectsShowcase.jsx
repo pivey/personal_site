@@ -5,6 +5,7 @@ import reactLogo from '../assets/reactjsLogo.svg';
 import globals from '../utils/globals';
 import construction from '../assets/underConstruction.svg';
 import vanillajs from '../assets/jslogo.png';
+import { device } from '../utils/themes';
 
 const { flex, backgroundProvider, noSelect, textBorder, transAll } = globals;
 
@@ -53,14 +54,11 @@ const ShowcaseItem = styled.div`
     ${textBorder('white', 'black')}
     ${backgroundProvider(construction)}
     background-color: #ededf4;
-
   }
-
   &.hvr-reveal:before {
     color: ${props => props.theme.hoverColor};
     color:transparent;
   }
-
   &.box:hover {
     box-shadow: 0 1px 1px rgba(0,0,0,0.12),
               0 2px 2px rgba(0,0,0,0.12),
@@ -69,7 +67,9 @@ const ShowcaseItem = styled.div`
               0 16px 16px rgba(0,0,0,0.12);
     transform: scale(1.06);
   }
-
+    @media ${device.belowMobileL} {
+    margin: 1.5rem 1rem;
+  }
 `;
 
 const ProjectLink = styled.a`
