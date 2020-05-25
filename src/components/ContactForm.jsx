@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import globals from '../utils/globals';
 import { Formik } from 'formik';
-import { AppContext } from '../context/appContext';
 import selectArrow from '../assets/selectArrow.svg';
 import { AnimatePresence, motion } from 'framer-motion';
 import emailjs from 'emailjs-com';
 import { device } from '../utils/themes';
+import useAppContext from '../hooks/useAppContext';
 
 const { flex } = globals;
 
@@ -225,9 +225,7 @@ const ContactForm = ({ display }) => {
     setShowError,
     contactFormValues,
     setContactFormValues,
-    submitForm,
-    setSubmitForm,
-  } = useContext(AppContext);
+  } = useAppContext();
   return (
     <Modal display={display}>
       <FormMother>

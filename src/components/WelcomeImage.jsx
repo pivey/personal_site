@@ -1,20 +1,64 @@
-import React, { useEffect, useContext, useRef } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import Typewriter from 'typewriter-effect';
-import globals from '../utils/globals';
-import anime from 'animejs/lib/anime.es.js';
-import {
-  BGC_1,
-  BGC_2,
-  BGC_3,
-  BGC_4,
-  BGC_5,
-  BGC_6,
-  BGC_7,
-  BGC_RED,
-  BGC_BLUE,
-} from '../assets/images/index';
+import { BGC_RED } from '../assets/images/index';
 import { device } from '../utils/themes';
+
+const range = (start, end, length = end - start + 1) =>
+  Array.from({ length }, (_, i) => start + i);
+
+const randomWH = () => {
+  const rangeLimits = range(12, 14);
+  const randomIndex = Math.ceil(Math.random() * rangeLimits.length);
+  return rangeLimits[randomIndex];
+};
+
+const blob1Transform = keyframes`
+  0%,
+  100% {
+    border-radius: 55% 45% 57% 43% / 60% 36% 64% 40%;
+    width: 15rem;
+    height: 15rem;
+  }
+  25% {
+    border-radius: 75% 25% 42% 58% / 62% 31% 69% 38%;
+    width: ${randomWH()}rem;
+    height: ${randomWH()}rem;
+  }
+  50% {
+    border-radius: 44% 56% 29% 71% / 72% 62% 38% 28%;
+    width: ${randomWH()}rem;
+    height: ${randomWH()}rem;
+  }
+  75% {
+    border-radius: 30% 70% 36% 64% / 69% 52% 48% 31%;
+    width: ${randomWH()}rem;
+    height: ${randomWH()}rem;
+  }
+`;
+const blob2Transform = keyframes`
+  0%,
+  100% {
+    border-radius: 66% 34% 62% 38% / 40% 66% 34% 60%;
+    width: 15rem;
+    height: 15rem;
+  }
+  25% {
+    border-radius: 58% 42% 44% 56% / 53% 57% 43% 47%;
+    width: ${randomWH()}rem;
+    height: ${randomWH()}rem;
+  }
+  50% {
+    border-radius: 43% 57% 37% 63% / 65% 42% 58% 35%;
+    width: ${randomWH()}rem;
+    height: ${randomWH()}rem;
+  }
+  75% {
+    border-radius: 66% 34% 60% 40% / 49% 33% 67% 51%;
+    width: ${randomWH()}rem;
+    height: ${randomWH()}rem;
+  }
+`;
 
 const WelcomeArea = styled.div`
   display: flex;
@@ -29,40 +73,15 @@ const WelcomeArea = styled.div`
 `;
 
 const Blob1 = styled.div`
-  fill: #0a8754;
-  z-index: -1;
-  animation: blob1Transform 20s ease-in-out infinite;
-  transform-origin: 50%;
-  @media ${device.belowMobileL} {
-    width: 60vw;
-  }
-  @media ${device.belowTablet} {
-    width: 45vw;
-  }
-  @media ${device.laptop} {
-    width: 25vw;
-  }
+  background: #0a8754;
+  z-index: 2;
+  animation: ${blob1Transform} 8s ease-in-out infinite;
 `;
 
 const Blob2 = styled.div`
-  fill: #634133;
-  z-index: -1;
-  animation: blob2Transform 15s ease-in-out infinite;
-  transform-origin: -100%;
-  @media ${device.belowMobileL} {
-    width: 60vw;
-  }
-  @media ${device.belowTablet} {
-    width: 45vw;
-  }
-  @media ${device.laptop} {
-    width: 25vw;
-  }
-`;
-
-const BlobHolder = styled.div`
-  height: 100vh;
-  width: 100vw;
+  background: #07393c;
+  z-index: 2;
+  animation: ${blob2Transform} 8s ease-in-out infinite;
 `;
 
 const WelcomeText = styled.div`
@@ -73,6 +92,7 @@ const WelcomeText = styled.div`
   position: absolute;
   top: 75%;
   left: 5vw;
+  z-index: 999;
 
   @media ${device.laptop} {
     font-size: 6rem;
@@ -114,27 +134,47 @@ const Title = styled.h2`
 `;
 
 const WelcomeImage = () => {
+  const blob1Ref = useRef(null);
+  const blob2Ref = useRef(null);
+  const welcomeAreaRef = useRef(null);
+  let parentWidth = null;
+  let parentHeight = null;
+
+  useEffect(() => {
+    if (welcomeAreaRef.current && blob1Ref.current && blob2Ref.current) {
+      parentWidth = welcomeAreaRef.current.clientWidth;
+      parentHeight = welcomeAreaRef.current.clientWidth;
+      console.log(welcomeAreaRef);
+      const makeNewPosition = () => {
+        // Get viewport dimensions (remove the dimension of the div)
+        const h = parentHeight - 16 * 15;
+        const w = parentWidth - 16 * 15;
+
+        const nh = Math.floor(Math.random() * h);
+        const nw = Math.floor(Math.random() * w);
+
+        return [nh, nw];
+      };
+
+      const moveBlob = () => {
+        var newPos1 = makeNewPosition();
+        var newPos2 = makeNewPosition();
+        blob1Ref.current.style.transform = `translate(${newPos1[0]}px, ${
+          newPos1[1]
+        }px)`;
+        blob2Ref.current.style.transform = `translate(${newPos2[0]}px, ${
+          newPos2[1]
+        }px)`;
+      };
+      setInterval(() => {
+        moveBlob();
+      }, 2000);
+    }
+  }, []);
   return (
-    <WelcomeArea>
-      <BlobHolder>
-        <Blob1>
-          <svg viewBox="0 0 310 350">
-            <path d="M156.4,339.5c31.8-2.5,59.4-26.8,80.2-48.5c28.3-29.5,40.5-47,56.1-85.1c14-34.3,20.7-75.6,2.3-111  c-18.1-34.8-55.7-58-90.4-72.3c-11.7-4.8-24.1-8.8-36.8-11.5l-0.9-0.9l-0.6,0.6c-27.7-5.8-56.6-6-82.4,3c-38.8,13.6-64,48.8-66.8,90.3c-3,43.9,17.8,88.3,33.7,128.8c5.3,13.5,10.4,27.1,14.9,40.9C77.5,309.9,111,343,156.4,339.5z" />
-          </svg>
-        </Blob1>
-      </BlobHolder>
-      <BlobHolder>
-        <Blob2>
-          <svg viewBox="0 0 600 600">
-            <g transform="translate(300,300)">
-              <path
-                d="M163.6,-172.3C200.5,-126.8,210.7,-63.4,208.9,-1.9C207,59.6,192.9,119.3,156.1,155.3C119.3,191.3,59.6,203.6,8.4,195.3C-42.9,186.9,-85.8,157.8,-125.1,121.8C-164.5,85.8,-200.2,42.9,-199.9,0.4C-199.5,-42.2,-163,-84.4,-123.7,-129.9C-84.4,-175.4,-42.2,-224.2,10.6,-234.8C63.4,-245.4,126.8,-217.8,163.6,-172.3Z"
-                fill="#00d084"
-              />
-            </g>
-          </svg>
-        </Blob2>
-      </BlobHolder>
+    <WelcomeArea ref={welcomeAreaRef}>
+      <Blob1 ref={blob1Ref} />
+      <Blob2 ref={blob2Ref} />
       <Title>
         <div>Peter</div>
         <div>Ivey</div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Frame, Scroll } from 'framer';
 import styled from 'styled-components';
@@ -7,9 +7,9 @@ import ProjectsShowcase from './ProjectsShowcase';
 import globals from '../utils/globals';
 import WelcomeImage from './WelcomeImage';
 import ContactForm from './ContactForm';
-import { AppContext } from '../context/appContext';
 import SectionText from './SectionText';
 import { device } from '../utils/themes';
+import useAppContext from '../hooks/useAppContext';
 
 const { textBorder, flex, transAll, noSelect } = globals;
 
@@ -17,13 +17,19 @@ const PageWrapper = styled.div`
   text-align: justify;
   text-justify: inter-character;
   width: 100vw;
-  @media ${device.tablet} {
-    padding: 0rem 5rem 6rem 5rem;
-  }
   @media ${device.belowMobileL} {
     padding: 0rem 2.5rem 5rem 2.5rem;
   }
+  @media ${device.mobileL} {
+    padding: 0rem 5rem 6rem 5rem;
+  }
+  @media ${device.tablet} {
+    padding: 0rem 5rem 6rem 5rem;
+  }
   @media ${device.laptop} {
+    padding: 0rem 12.5rem 6rem 12.5rem;
+  }
+  @media ${device.desktop} {
     padding: 0rem 20rem 6rem 20rem;
   }
 `;
@@ -186,7 +192,7 @@ const BoldText = styled.b`
 `;
 
 const FrontPage = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible] = useState(true);
 
   const createAnchor = (link, label) => (
     <StyledAnchor rel="noopener noreferrer" target="_blank" href={link}>
@@ -199,7 +205,7 @@ const FrontPage = () => {
     setContactFormShow,
     contactFormInitState,
     setContactFormValues,
-  } = useContext(AppContext);
+  } = useAppContext();
 
   const content = websiteText();
 

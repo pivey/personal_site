@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './styles/App.css';
 import './styles/Base.css';
 import './styles/State.css';
@@ -7,9 +7,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import FrontPage from './components/FrontPage';
 import { themes } from './utils/themes';
-import sunSVG from './assets/sunicon.svg';
-import moonSVG from './assets/moonicon.svg';
-import { AppContext } from './context/appContext';
+import useAppContext from './hooks/useAppContext';
 
 const ThemeIconSun = css`
   width: 3rem;
@@ -21,26 +19,6 @@ const ThemeIconSun = css`
   background-repeat: no-repeat;
 `;
 
-const ThemeIconMoon = css`
-  width: 2rem;
-  height: 2rem;
-  cursor: pointer;
-  background-size: cover;
-  background-position: 50% 50%;
-  background-color: transparent;
-  background-repeat: no-repeat;
-`;
-
-const MoonIcon = styled.svg`
-  ${ThemeIconMoon}
-  background-image: url(${moonSVG});
-`;
-
-const SunIcon = styled.div`
-  ${ThemeIconSun}
-  background-image: url(${sunSVG});
-`;
-
 const lightTheme = () => ({
   ...themes.light,
 });
@@ -50,11 +28,11 @@ const darkTheme = () => ({
 });
 
 const MainWrapper = styled.div`
-  // padding-top: 5%;
   width: 100vw;
   height: auto;
   background: ${props => props.theme.bgColor};
   transition-duration: ${props => props.theme.delay};
+  position: ${({ fixedBody }) => fixedBody && 'fixed'};
 `;
 
 const ThemeChangeHolder = styled.div`
@@ -84,29 +62,16 @@ const routing = routes.map(({ path, component }, i) => (
 ));
 
 function App() {
+  const { contactFormShow } = useAppContext();
   const [theme, setTheme] = useState(lightTheme());
   const setDarkTheme = () => setTheme(darkTheme());
   const setLightTheme = () => setTheme(lightTheme());
-  const { scrollStatus } = useContext(AppContext);
 
   return (
     <>
       <Router>
         <ThemeProvider theme={theme}>
-          <MainWrapper>
-            {/* <TransitionX> */}
-            {/* <ThemeChangeHolder
-                className={
-                  scrollStatus.show ? 'active hvr-push' : 'hidden hvr-push'
-                }
-              >
-                {theme.type === 'light' && <MoonIcon onClick={setDarkTheme} />}
-                {theme.type === 'dark' && <SunIcon onClick={setLightTheme} />}
-              </ThemeChangeHolder> */}
-            {/* </TransitionX> */}
-            {/* <Navbar /> */}
-            {routing}
-          </MainWrapper>
+          <MainWrapper fixedBody={contactFormShow}>{routing}</MainWrapper>
         </ThemeProvider>
       </Router>
     </>

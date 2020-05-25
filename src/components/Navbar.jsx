@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, animateScroll as scroll } from 'react-scroll';
-import { AppContext } from '../context/appContext.js';
+import useAppContext from '../hooks/useAppContext';
 
 export const navText = [
   { section: 'Home' }, //
@@ -55,7 +55,7 @@ const Transition = styled.div`
 `;
 
 function Navbar() {
-  const { scrollStatus, setScrollStatus } = useContext(AppContext);
+  const { scrollStatus, setScrollStatus } = useAppContext();
 
   let count = 0;
   useEffect(() => {
@@ -63,7 +63,8 @@ function Navbar() {
       if (count === 0) {
         setScrollStatus({
           scrollPos: document.body.getBoundingClientRect().top,
-          show: document.body.getBoundingClientRect().top > scrollStatus.scrollPos,
+          show:
+            document.body.getBoundingClientRect().top > scrollStatus.scrollPos,
         });
       }
       count = 1;
