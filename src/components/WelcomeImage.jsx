@@ -1,143 +1,222 @@
 import React, { useRef, useState, useEffect } from 'react';
-import Anime, { anime } from 'react-anime';
-import styled, { keyframes } from 'styled-components';
-import Typewriter from 'typewriter-effect';
-import { BGC_RED } from '../assets/images/index';
+import Anime from 'react-anime';
+import styled, { keyframes, createGlobalStyle } from 'styled-components';
+import SplitText from './SplitTitle';
 import { device } from '../utils/themes';
+import useMediaQuery from './useMediaQuery';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    overflow: ${({ ableToScroll }) => (ableToScroll ? 'scroll' : 'hidden')};
+  }
+`;
 
 const range = (start, end, length = end - start + 1) =>
   Array.from({ length }, (_, i) => start + i);
 
-const randomWH = () => {
-  const rangeLimits = range(12.5, 15.5);
+const randomWH = belowTablet => {
+  const rangeLimits = belowTablet ? range(7.5, 10.5) : range(12.5, 15.5);
   const randomIndex = Math.ceil(Math.random() * rangeLimits.length);
   return rangeLimits[randomIndex];
 };
 
-const blob1Transform = keyframes`
+const fadeUp = keyframes`
+   0% {
+      opacity: 0;
+      transform: translateY(200px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+`;
+
+const blob1Transform = belowTablet => keyframes`
       0%,
       100% {
         border-radius: 55% 45% 57% 43% / 60% 36% 64% 40%;
       }
       25% {
         border-radius: 75% 25% 42% 58% / 62% 31% 69% 38%;
-        width: ${randomWH()}rem;
-        height: ${randomWH()}rem;
+        width: ${randomWH(belowTablet)}rem;
+        height: ${randomWH(belowTablet)}rem;
       }
       50% {
         border-radius: 44% 56% 29% 71% / 72% 62% 38% 28%;
-        width: ${randomWH()}rem;
-        height: ${randomWH()}rem;
+        width: ${randomWH(belowTablet)}rem;
+        height: ${randomWH(belowTablet)}rem;
       }
       75% {
         border-radius: 30% 70% 36% 64% / 69% 52% 48% 31%;
-        width: ${randomWH()}rem;
-        height: ${randomWH()}rem;
+        width: ${randomWH(belowTablet)}rem;
+        height: ${randomWH(belowTablet)}rem;
       }`;
 
-const blob2Transform = keyframes`
+const blob2Transform = belowTablet => keyframes`
   0%,
   100% {
     border-radius: 66% 34% 62% 38% / 40% 66% 34% 60%;
   }
   25% {
     border-radius: 58% 42% 44% 56% / 53% 57% 43% 47%;
-    width: ${randomWH()}rem;
-    height: ${randomWH()}rem;
+    width: ${randomWH(belowTablet)}rem;
+    height: ${randomWH(belowTablet)}rem;
   }
   50% {
     border-radius: 43% 57% 37% 63% / 65% 42% 58% 35%;
-    width: ${randomWH()}rem;
-    height: ${randomWH()}rem;
+    width: ${randomWH(belowTablet)}rem;
+    height: ${randomWH(belowTablet)}rem;
   }
   75% {
     border-radius: 66% 34% 60% 40% / 49% 33% 67% 51%;
-    width: ${randomWH()}rem;
-    height: ${randomWH()}rem;
+    width: ${randomWH(belowTablet)}rem;
+    height: ${randomWH(belowTablet)}rem;
   }
+`;
+
+const moveText = keyframes`
+    0% { bottom: -0.2em; opacity: 1; color: white; }
+    50% { bottom: 0.5em; }
+    100% { bottom: 0; opacity: 1; }
 `;
 
 const WelcomeArea = styled.div`
   display: flex;
   width: 100vw;
   height: 100vh;
-  background-image: url(${BGC_RED});
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background-color: #111344;
   overflow: hidden;
+
+  h1 {
+    text-align: center;
+    font-family: 'Helvetica';
+    font-weight: 600;
+    color: #fcedd8;
+    text-transform: uppercase;
+    z-index: 999;
+    margin: 0;
+    text-shadow: 4px 4px 0px #eb452b, 6px 6px 0px #efa032, 8px 8px 0px #46b59b,
+      10px 10px 0px #017e7f, 12px 12px 0px #052939, 14px 14px 0px #c11a2b;
+    @media ${device.mobileS} {
+      font-size: 4rem;
+    }
+    @media ${device.tablet} {
+      font-size: 6rem;
+    }
+  }
+
+  h1 span span {
+    color: #0779e4;
+    animation: ${moveText} 0.75s forwards;
+    position: relative;
+    opacity: 0;
+  }
 `;
 
-const Blob = ({ bgc, animationName, duration }) =>
+const Blob = ({ bgc, animationName, duration, startingPos }) =>
   styled.div`
     background: ${bgc};
-    width: 15rem;
-    height: 15rem;
     z-index: 2;
+    top: ${startingPos[0]}px;
+    left: ${startingPos[1]}px;
+    position: absolute;
     animation: ${animationName} ${duration} ease-in-out infinite;
+    background: ${bgc};
+    @media ${device.belowTablet} {
+      width: 10rem;
+      height: 10rem;
+    }
+    @media ${device.tablet} {
+      width: 15rem;
+      height: 15rem;
+    }
   `;
 
-const WelcomeText = styled.div`
-  width: auto;
-  height: auto;
-  color: white;
-  text-decoration: bold;
+const AboutContainer = styled.div`
   position: absolute;
-  top: 75%;
-  left: 5vw;
-  z-index: 999;
-
-  @media ${device.laptop} {
-    font-size: 6rem;
-    top: 75%;
-    left: 5vw;
-  }
-  @media ${device.tablet} {
-    font-size: 5rem;
-    top: 80%;
-    left: 5vw;
-  }
-  @media ${device.belowMobileL} {
-    display: table-caption;
-    font-size: 3.5rem;
-    top: 70%;
-  }
-`;
-
-const Title = styled.h2`
-  display: flex;
-  flex-direction: column;
-  color: white;
-  font-size: 8rem;
-  font-weight: bold;
+  font-family: 'Helvetica';
+  font-weight: 600;
+  color: #fcedd8;
   text-transform: uppercase;
-  position: absolute;
-  top: 5rem;
-  left: 5vw;
-  z-index: 999;
-  @media ${device.tablet} {
-    font-size: 6rem;
-    top: 3rem;
-    left: 5vw;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: 4px 4px 0px #eb452b, 6px 6px 0px #efa032, 8px 8px 0px #46b59b,
+    10px 10px 0px #017e7f, 12px 12px 0px #052939, 14px 14px 0px #c11a2b;
+  text-align: center;
+
+  li {
+    list-style-type: none;
+    margin-top: 2rem;
+    font-size: 3rem;
+    :first-child {
+      margin-top: 0;
+    }
   }
-  @media ${device.belowMobileL} {
-    font-size: 4rem;
-    top: 2rem;
+  ul {
+    vertical-align: middle;
+    height: 7rem;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    position: relative;
+    overflow: auto;
+    overflow-y: hidden;
+    animation: ${fadeUp} 4s forwards;
+    @media ${device.belowTablet} {
+      height: 5rem;
+    }
+    @media ${device.tablet} {
+      height: 7rem;
+    }
+    #scrollMeToo {
+      overflow: auto;
+      position: relative;
+      overflow-y: hidden;
+    }
   }
 `;
+
+let curScroll = 0;
+
+const controlScroll = e => {
+  let evt = window.event || e;
+  const delta = evt.detail ? evt.detail : evt.wheelDelta;
+  if (delta < 0) {
+    //scroll down
+    curScroll += 8;
+  } else {
+    //scroll up
+    curScroll -= 8;
+  }
+  document.getElementById('scrollMeToo').scrollTop = curScroll;
+};
+
+if (document.addEventListener) {
+  document.addEventListener('mousewheel', controlScroll, false);
+}
 
 const WelcomeImage = () => {
   const [blob1Coordinates, setBlob1Coordinates] = useState([]);
   const [blob2Coordinates, setBlob2Coordinates] = useState([]);
+  const [blob1StartingPos, setBlob1StartingPos] = useState([]);
+  const [blob2StartingPos, setBlob2StartingPos] = useState([]);
+  const [totalElementHeight, setTotalElementHeight] = useState(null);
+  const [scrollDepth, setScrollDepth] = useState(null);
+  const [canScroll, setCanScroll] = useState(false);
+  const scrollRef = useRef(null);
+
+  const belowTabletSize = useMediaQuery('belowTablet');
 
   useEffect(() => {
     const {
       width: welcomeAreaWidth,
       height: welcomeAreaHeight,
     } = document.getElementById('welcomeArea').getBoundingClientRect();
-    const parentWidth = welcomeAreaWidth;
-    const parentHeight = welcomeAreaHeight;
+    const parentWidth = welcomeAreaWidth / 1.5;
+    const parentHeight = welcomeAreaHeight / 1.5;
     const makeNewPosition = () => {
       const blobDimensions = 16 * 15;
       const h = parentHeight - blobDimensions;
@@ -156,7 +235,8 @@ const WelcomeImage = () => {
       }
       return positions;
     };
-
+    setBlob1StartingPos(makeNewPosition());
+    setBlob2StartingPos(makeNewPosition());
     setBlob1Coordinates(createCoordinates());
     setBlob2Coordinates(createCoordinates());
   }, []);
@@ -184,68 +264,93 @@ const WelcomeImage = () => {
   });
 
   const Blob1 = Blob({
-    bgc: '#543864',
-    animationName: blob1Transform,
-    duration: '8s',
+    bgc: `radial-gradient(
+        circle at 100%,
+        #eb452b 15%,
+        #efa032 30%,
+        #46b59b 45%,
+        #017e7f 60%,
+        #052939 75%,
+        #c11a2b 90%
+      );`,
+    animationName: blob1Transform(belowTabletSize),
+    duration: '6s',
+    startingPos: blob1StartingPos,
   });
 
   const Blob2 = Blob({
-    bgc: '#12947f',
-    animationName: blob2Transform,
-    duration: '8s',
+    bgc: `radial-gradient(
+        circle at 100%,
+        #c11a2b 15%,
+        #052939 30%,
+        #017e7f 45%,
+        #46b59b 60%,
+        #efa032 75%,
+        #eb452b 90%
+      );`,
+    animationName: blob2Transform(belowTabletSize),
+    duration: '6s',
+    startingPos: blob2StartingPos,
   });
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      setTotalElementHeight(scrollRef.current.scrollHeight);
+    }
+  }, [scrollRef]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      console.log(scrollRef.current.scrollTop, totalElementHeight);
+      document.getElementById('scrollMeToo').addEventListener('scroll', () => {
+        setScrollDepth(scrollRef.current.scrollTop);
+        if (scrollDepth > totalElementHeight - 100) {
+          setCanScroll(true);
+        }
+      });
+    }
+  }, [scrollDepth]);
+
   return (
-    <WelcomeArea id="welcomeArea">
-      <Anime {...animationProps(blob1Coords)}>
-        <Blob1 />
-      </Anime>
-      <Anime {...animationProps(blob2Coords)}>
-        <Blob2 />
-      </Anime>
-      <Title>
-        <div>Peter</div>
-        <div>Ivey</div>
-        <div>Hansen</div>
-      </Title>
-      <WelcomeText>
-        <Typewriter
-          options={{
-            loop: true,
-          }}
-          onInit={typewriter => {
-            typewriter
-              .pauseFor(1500)
-              .typeString('Coder')
-              .deleteChars(6)
-              .pauseFor(1200)
-              .typeString('Creative')
-              .deleteChars(8)
-              .pauseFor(1200)
-              .typeString('Frontend developer')
-              .pauseFor(1500)
-              .deleteAll()
-              .typeString('React | Next')
-              .pauseFor(1500)
-              .deleteAll()
-              .typeString('Node | Express')
-              .pauseFor(1500)
-              .deleteAll()
-              .typeString('Firebase | GraphQL')
-              .pauseFor(1500)
-              .deleteAll()
-              .typeString('Typescript')
-              .pauseFor(1500)
-              .deleteAll()
-              .typeString('Stockholm, Sweden')
-              .pauseFor(2000)
-              .deleteAll()
-              .pauseFor(4000)
-              .start();
-          }}
-        />
-      </WelcomeText>
-    </WelcomeArea>
+    <>
+      <GlobalStyle ableToScroll={canScroll} />
+      <WelcomeArea id="welcomeArea">
+        <Anime {...animationProps(blob1Coords)}>
+          <Blob1 />
+        </Anime>
+        <Anime {...animationProps(blob2Coords)}>
+          <Blob2 />
+        </Anime>
+        <AboutContainer>
+          <h1>
+            <SplitText copy="Peter Ivey Hansen" role="heading" />
+          </h1>
+          <ul id="scrollMeToo" ref={scrollRef}>
+            <li>
+              <h2>Creative</h2>
+            </li>
+            <li>
+              <h2>Frontend developer</h2>
+            </li>
+            <li>
+              <h2>React | Next</h2>
+            </li>
+            <li>
+              <h2>Node | Express</h2>
+            </li>
+            <li>
+              <h2>Firebase | GraphQL</h2>
+            </li>
+            <li>
+              <h2>Typescript</h2>
+            </li>
+            <li>
+              <h2>Stockholm, Sweden</h2>
+            </li>
+          </ul>
+        </AboutContainer>
+      </WelcomeArea>
+    </>
   );
 };
 
