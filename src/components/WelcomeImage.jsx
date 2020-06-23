@@ -1,15 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Anime from 'react-anime';
-import styled, { keyframes, createGlobalStyle } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import SplitText from './SplitTitle';
 import { device } from '../utils/themes';
 import useMediaQuery from './useMediaQuery';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    overflow: ${({ ableToScroll }) => (ableToScroll ? 'scroll' : 'hidden')};
-  }
-`;
 
 const range = (start, end, length = end - start + 1) =>
   Array.from({ length }, (_, i) => start + i);
@@ -21,14 +15,14 @@ const randomWH = belowTablet => {
 };
 
 const fadeUp = keyframes`
-   0% {
-      opacity: 0;
-      transform: translateY(200px);
-   }
-   100% {
-      opacity: 1;
-      transform: translateY(0);
-   }
+  0% {
+    opacity: 0;
+    transform: translateY(200px);
+  }
+  100% {
+    opacity:1;
+    transform: translateY(0);
+  }
 }
 `;
 
@@ -150,8 +144,21 @@ const AboutContainer = styled.div`
     list-style-type: none;
     margin-top: 2rem;
     font-size: 3rem;
+    scroll-snap-align: start;
     :first-child {
       margin-top: 0;
+    }
+    :last-child {
+      margin-bottom: 2rem;
+    }
+    @media ${device.mobileS} {
+      font-size: 1rem;
+    }
+    @media ${device.mobileM} {
+      font-size: 2rem;
+    }
+    @media ${device.tablet} {
+      font-size: 3rem;
     }
   }
   ul {
@@ -163,49 +170,24 @@ const AboutContainer = styled.div`
     position: fixed;
     position: relative;
     overflow: auto;
-    overflow-y: hidden;
-    animation: ${fadeUp} 4s forwards;
+    animation: ${fadeUp} 3s forwards;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    margin-top: 2rem;
     @media ${device.belowTablet} {
       height: 5rem;
     }
     @media ${device.tablet} {
       height: 7rem;
     }
-    #scrollMeToo {
-      overflow: auto;
-      position: relative;
-      overflow-y: hidden;
-    }
   }
 `;
-
-let curScroll = 0;
-
-const controlScroll = e => {
-  let evt = window.event || e;
-  const delta = evt.detail ? evt.detail : evt.wheelDelta;
-  if (delta < 0) {
-    //scroll down
-    curScroll += 8;
-  } else {
-    //scroll up
-    curScroll -= 8;
-  }
-  document.getElementById('scrollMeToo').scrollTop = curScroll;
-};
-
-if (document.addEventListener) {
-  document.addEventListener('mousewheel', controlScroll, false);
-}
 
 const WelcomeImage = () => {
   const [blob1Coordinates, setBlob1Coordinates] = useState([]);
   const [blob2Coordinates, setBlob2Coordinates] = useState([]);
   const [blob1StartingPos, setBlob1StartingPos] = useState([]);
   const [blob2StartingPos, setBlob2StartingPos] = useState([]);
-  const [totalElementHeight, setTotalElementHeight] = useState(null);
-  const [scrollDepth, setScrollDepth] = useState(null);
-  const [canScroll, setCanScroll] = useState(false);
   const scrollRef = useRef(null);
 
   const belowTabletSize = useMediaQuery('belowTablet');
@@ -293,27 +275,65 @@ const WelcomeImage = () => {
     startingPos: blob2StartingPos,
   });
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      setTotalElementHeight(scrollRef.current.scrollHeight);
-    }
-  }, [scrollRef]);
+  const scrollStop = scroller => {
+    let timer;
+    scroller.addEventListener('scroll', () => {
+      clearTimeout(timer);
+      timer = setTimeout(refresh, 20);
+    });
+    const refresh = () => {
+      scroller.style.filter = `blur(0px)`;
+    };
+  };
 
   useEffect(() => {
-    if (scrollRef.current) {
-      console.log(scrollRef.current.scrollTop, totalElementHeight);
-      document.getElementById('scrollMeToo').addEventListener('scroll', () => {
-        setScrollDepth(scrollRef.current.scrollTop);
-        if (scrollDepth > totalElementHeight - 100) {
-          setCanScroll(true);
+    if (scrollRef.current && window && document) {
+      const ulHeight = scrollRef.current.scrollHeight;
+      const children = scrollRef.current.childElementCount;
+      setInterval(() => {
+        if (
+          scrollRef.current.scrollTop >=
+          ulHeight - ulHeight / children - 50
+        ) {
+          scrollRef.current.scrollTop = 0;
+        } else {
+          scrollRef.current.scrollTop += 100;
         }
-      });
+      }, 1500);
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (window.scrollY > 50) {
+            scrollRef.current.scrollTop = 100;
+          }
+        },
+        false,
+      );
+      scrollRef.current.addEventListener(
+        'scroll',
+        () => {
+          scrollRef.current.style.filter = `blur(6px)`;
+        },
+        false,
+      );
+      scrollStop(scrollRef.current);
     }
-  }, [scrollDepth]);
+  }, []);
+
+  const aboutCarousel = [
+    'Developer',
+    'Creative',
+    'React | Next',
+    'Typescript',
+    'Express',
+    'Firebase',
+    'GraphQL',
+    'Stockholm',
+  ];
 
   return (
     <>
-      <GlobalStyle ableToScroll={canScroll} />
       <WelcomeArea id="welcomeArea">
         <Anime {...animationProps(blob1Coords)}>
           <Blob1 />
@@ -326,27 +346,11 @@ const WelcomeImage = () => {
             <SplitText copy="Peter Ivey Hansen" role="heading" />
           </h1>
           <ul id="scrollMeToo" ref={scrollRef}>
-            <li>
-              <h2>Creative</h2>
-            </li>
-            <li>
-              <h2>Frontend developer</h2>
-            </li>
-            <li>
-              <h2>React | Next</h2>
-            </li>
-            <li>
-              <h2>Node | Express</h2>
-            </li>
-            <li>
-              <h2>Firebase | GraphQL</h2>
-            </li>
-            <li>
-              <h2>Typescript</h2>
-            </li>
-            <li>
-              <h2>Stockholm, Sweden</h2>
-            </li>
+            {aboutCarousel.map(el => (
+              <li>
+                <h2>{el}</h2>
+              </li>
+            ))}
           </ul>
         </AboutContainer>
       </WelcomeArea>

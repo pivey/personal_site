@@ -4,7 +4,7 @@ const SplitTitle = ({ copy, role }) => (
   <span aria-label={copy} role={role}>
     {copy.split('').map((char, index) => {
       const style = {
-        'animation-delay': 1 + index / 10 + 's',
+        animationDelay: 1 + index / 10 + 's',
         color: `#fcedd8`,
       };
       return (
